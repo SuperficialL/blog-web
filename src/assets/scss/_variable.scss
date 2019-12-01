@@ -1,36 +1,38 @@
 /* Header 头部变量 */
 
 // 一级导航栏背景色
-$background-color: #E74C3C;
+$background-color: #e74c3c;
 $link-color: #00c1de;
 // 搜索
-$search-bgc: #D52D1A;
+$search-bgc: #d52d1a;
 
 // 一级导航栏a:hover
-$nav-link-hover: rgba(231,75,60, .7);
+$nav-link-hover: rgba(231, 75, 60, 0.7);
 
 // 二级导航栏a:hover
-$sub-link-hover: rgb(87,102,99);
-
-
+$sub-link-hover: rgb(87, 102, 99);
 
 // 文字尺寸(font-size)
-$base-font-size:1rem;
-$font-sizes:(
-    xs:0.7692, //10px
-    sm:0.9231, //12px
-    md:1, //13px
-    lg:1.0769, //14px
-    xl: 1.2308, //16px
+$base-font-size: 1rem;
+$font-sizes: (
+  xs: 0.7692,
+  //10px
+    sm: 0.9231,
+  //12px
+    md: 1,
+  //13px
+    lg: 1.0769,
+  //14px
+    xl: 1.2308,
+  //16px
 );
-
 
 // colors
 $colors: (
-    "primary": #db9e3f,
-    "white": #fff,
-    "light": #f9f9f9,
-    "dark": #222,
-    "grey": #999,
-    "block": #000,
+  "primary": #db9e3f,
+  "white": #fff,
+  "light": #f9f9f9,
+  "dark": #222,
+  "grey": #999,
+  "block": #000
 );

@@ -1,7 +1,8 @@
 /* reset */
-@import './variable';
+@import "./variable";
 
-ul,ol {
+ul,
+ol {
   margin: 0;
   padding: 0;
 }
@@ -26,7 +27,6 @@ p code {
   border-radius: 3px;
   color: #d14;
 }
-
 
 /*滚动条整体样式*/
 ::-webkit-scrollbar {
@@ -54,7 +54,8 @@ a {
   text-decoration: none;
 }
 
-ul li,ol li {
+ul li,
+ol li {
   list-style: none;
 }
 
@@ -64,8 +65,7 @@ img {
   border: none;
 }
 
-
-@each $colorKey,$color in $colors {
+@each $colorKey, $color in $colors {
   // 文字颜色(color)
   .text-#{$colorKey} {
     color: $color;
@@ -74,23 +74,20 @@ img {
   .bg-#{$colorKey} {
     background-color: $color;
   }
-};
-
+}
 
 // 文本居中方式(text-algin)
-@each $var in (left,center,right) {
+@each $var in (left, center, right) {
   .text-#{$var} {
     text-align: $var;
   }
 }
 
-
-@each $sizeKey,$size in $font-sizes {
+@each $sizeKey, $size in $font-sizes {
   .fs-#{$sizeKey} {
     font-size: $size * $base-font-size;
   }
-};
-
+}
 
 .wrap {
   width: 1200px;
@@ -98,13 +95,12 @@ img {
   height: inherit;
 }
 
-
 .article-list {
   display: flex;
   justify-content: space-between;
   align-items: center;
   padding: 10px 0;
-  transition: all .4s ease;
+  transition: all 0.4s ease;
   border-bottom: 1px solid #eee;
   &:hover .thumbnail {
     transform: scale(1.075);
@@ -121,7 +117,7 @@ img {
       height: 160px;
       background-color: #fff;
       border-radius: 6px;
-      transition: .4s ease-in-out;
+      transition: 0.4s ease-in-out;
     }
   }
   .article-inner {

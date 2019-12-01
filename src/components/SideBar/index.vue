@@ -1,106 +1,108 @@
 <template>
-<aside class="sidebar">
-  <div class="aside">
-  <h4 class="title">网站公告</h4>
-  <div class="notice">
-    <ul>
-        <li>
-          <time>{{ notice.created_time }}</time>
-          <span>{{ notice.text }}</span>
-        </li>
-    </ul>
-  </div>
-</div>
-<div class="aside">
-  <h4 class="title">热门文章排行</h4>
-  <ol class="hot-list">
-      <li class="" v-for="(article,index) in articleList" :key="index">
-        <a href="#" :title="article.title">
-          {{ article.title }}
-        </a>
-      </li>
-  </ol>
-</div>
-<div class="aside">
-  <h4 class="title">最近发表</h4>
-  <ul class="recent-list">
-      <li class="item" v-for="(article,index) in articleList" :key="index">
-        <a href="#" :title="article.title">
-          <div class="time">
-            <span class="day">{{ article.created_time }}</span> /
-            <span class="monty">{{ article.created_time }}</span>
-          </div>
-          <p>{{ article.title }}</p>
-        </a>
-      </li>
-  </ul>
-</div>
-<div class="aside">
-  <h4 class="title">最近评论</h4>
-  <ul class="recent-comment">
-      <li class="item" v-for="(comment,index) in comments" :key="index">
-        <a href="#" :title="article.title">
-          <img :src="comment.email" :alt="comment.nickname" class="avatar">
-        </a>
-        <div class="con">
+  <aside class="sidebar">
+    <div class="aside">
+      <h4 class="title">网站公告</h4>
+      <div class="notice">
+        <ul>
+          <li>
+            <time>{{ notice.created_time }}</time>
+            <span>{{ notice.text }}</span>
+          </li>
+        </ul>
+      </div>
+    </div>
+    <div class="aside">
+      <h4 class="title">热门文章排行</h4>
+      <ol class="hot-list">
+        <li class="" v-for="(article, index) in articleList" :key="index">
           <a href="#" :title="article.title">
-            <p>{{ comment.content }}</p>
+            {{ article.title }}
           </a>
-          <p class="info">{{ comment.nickname }} 评论于: {{ comment.created_time|date:'Y-m-d' }}</p>
-        </div>
-      </li>
-  </ul>
-</div>
-<div class="aside">
-  <h4 class="title">所有标签</h4>
-  <ul class="tags">
-      <li v-for="(tag,index) in tags" :key="index">
-        <a href="#">
-          {{ tag.name }}
-        </a>
-      </li>
-  </ul>
-</div>
+        </li>
+      </ol>
+    </div>
+    <div class="aside">
+      <h4 class="title">最近发表</h4>
+      <ul class="recent-list">
+        <li class="item" v-for="(article, index) in articleList" :key="index">
+          <a href="#" :title="article.title">
+            <div class="time">
+              <span class="day">{{ article.created_time }}</span> /
+              <span class="monty">{{ article.created_time }}</span>
+            </div>
+            <p>{{ article.title }}</p>
+          </a>
+        </li>
+      </ul>
+    </div>
+    <div class="aside">
+      <h4 class="title">最近评论</h4>
+      <ul class="recent-comment">
+        <li class="item" v-for="(comment, index) in comments" :key="index">
+          <a href="#" :title="article.title">
+            <img :src="comment.email" :alt="comment.nickname" class="avatar" />
+          </a>
+          <div class="con">
+            <a href="#" :title="article.title">
+              <p>{{ comment.content }}</p>
+            </a>
+            <p class="info">
+              {{ comment.nickname }} 评论于:
+              {{ comment.created_time|date:'Y-m-d' }}
+            </p>
+          </div>
+        </li>
+      </ul>
+    </div>
+    <div class="aside">
+      <h4 class="title">所有标签</h4>
+      <ul class="tags">
+        <li v-for="(tag, index) in tags" :key="index">
+          <a href="#">
+            {{ tag.name }}
+          </a>
+        </li>
+      </ul>
+    </div>
 
-<div class="aside">
-  <h4 class="title">站点信息</h4>
-  <ul class="site">
-    <li>分类:{{ total.category_nums }}个</li>
-    <li>标签:{{ total.tag_nums }}个</li>
-    <li>文章:{{ total.article_nums }}篇</li>
-    <li>评论:{{ total.comment_nums }}条</li>
-    <li>访问量:{{ total.visit_nums }}条</li>
-  </ul>
-</div>
-</aside>
-
+    <div class="aside">
+      <h4 class="title">站点信息</h4>
+      <ul class="site">
+        <li>分类:{{ total.category_nums }}个</li>
+        <li>标签:{{ total.tag_nums }}个</li>
+        <li>文章:{{ total.article_nums }}篇</li>
+        <li>评论:{{ total.comment_nums }}条</li>
+        <li>访问量:{{ total.visit_nums }}条</li>
+      </ul>
+    </div>
+  </aside>
 </template>
 
 <script>
-  // import { mapState } from 'vuex'
+// import { mapState } from 'vuex'
 
-  export default {
-    name: 'Sidebar',
-    // computed: {
-    //   ...mapState({
-    //     friendLink: state => state.base.friendLink,
-    //     tags: state => state.base.tags,
-    //     blogInfo: state => state.base.blogInfo,
-    //     comments: state => state.base.comments
-    //   })
-    // }
-    data() {
-      return {
-        notice: {},
-        articleList: [],
-        friendLink: [],
-        tags: [],
-        blogInfo:{},
-        comments: [],
-        total:{}
-      }
-    }
+export default {
+  name: "Sidebar",
+  // computed: {
+  //   ...mapState({
+  //     friendLink: state => state.base.friendLink,
+  //     tags: state => state.base.tags,
+  //     blogInfo: state => state.base.blogInfo,
+  //     comments: state => state.base.comments
+  //   })
+  // }
+  data () {
+    return {
+      notice: {},
+      articleList: [],
+      friendLink: [],
+      tags: [],
+      blogInfo: {},
+      comments: [],
+      total: {}
+    };
   }
+};
 </script>
 
 <style lang="scss" scoped>
@@ -131,9 +133,9 @@
       background: #000;
       left: 0;
       bottom: 0;
-      -moz-transition: all .5s ease;
-      -webkit-transition: all .5s ease;
-      transition: all .5s ease;
+      -moz-transition: all 0.5s ease;
+      -webkit-transition: all 0.5s ease;
+      transition: all 0.5s ease;
     }
   }
 }
@@ -201,7 +203,6 @@
         overflow: hidden;
         text-overflow: ellipsis;
         white-space: nowrap;
-
       }
     }
   }
@@ -211,7 +212,6 @@
   position: relative;
   width: 100%;
   overflow: hidden;
-
 
   .item {
     display: flex;
@@ -260,11 +260,11 @@
 .aside .tags li {
   margin: 0 6px 10px 0;
   padding: 4px 8px;
-  background-color: #F1F1F1;
-  color: #3498DB;
+  background-color: #f1f1f1;
+  color: #3498db;
   border-radius: 4px;
   font-size: 12px;
-  transition: border-radius .4s linear;
+  transition: border-radius 0.4s linear;
 }
 
 .aside .tags li a {
@@ -273,7 +273,7 @@
 
 .aside .tags li:hover {
   background-color: #d9534f;
-  color: #FFF;
+  color: #fff;
   border-radius: 0;
 }
 
