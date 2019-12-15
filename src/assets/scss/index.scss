@@ -1,0 +1,232 @@
+/* reset */
+@import "./variable";
+
+ul,
+ol {
+  margin: 0;
+  padding: 0;
+}
+
+html {
+  font-size: 13px;
+}
+
+a {
+  transition: color 0.4s;
+  color: #666;
+  text-decoration: none;
+}
+
+ul li,
+ol li {
+  list-style: none;
+}
+input,
+textarea {
+  border: 0;
+  outline: none;
+  box-sizing: border-box;
+}
+
+img {
+  max-width: 100%;
+  max-height: 100%;
+  border: none;
+}
+
+h1,
+h2,
+h3,
+h4,
+h5,
+h6,
+p,
+body {
+  margin: 0;
+  padding: 0;
+  font-weight: 500;
+}
+
+body {
+  font-family: Arial, Helvetica, sans-serif;
+  line-height: 1.2;
+  background-color: #f1f1f1;
+}
+
+p code {
+  padding: 2px 5px;
+  font-size: 85%;
+  background-color: #f7f7f9;
+  border-radius: 3px;
+  border: 1px solid #e3edf3;
+  border-radius: 3px;
+  color: #d14;
+}
+.iconfont {
+  vertical-align: middle;
+}
+
+/*滚动条整体样式*/
+::-webkit-scrollbar {
+  width: 6px;
+  height: 1px;
+}
+
+/*滚动条滑块*/
+::-webkit-scrollbar-thumb {
+  border-radius: 10px;
+  background-color: rgba(0, 0, 255, 0.5);
+  box-shadow: inset 0 0 5px rgba(0, 0, 0, 0.2);
+}
+
+/*滚动条轨道*/
+::-webkit-scrollbar-track {
+  -webkit-box-shadow: inset 0 0 1px rgba(0, 0, 0, 0);
+  box-shadow: inset 0 0 1px rgba(0, 0, 0, 0);
+  border-radius: 10px;
+  background: #ccc;
+}
+
+@each $colorKey, $color in $colors {
+  // 文字颜色(color)
+  .text-#{$colorKey} {
+    color: $color;
+  }
+  // 背景色(background-color)
+  .bg-#{$colorKey} {
+    background-color: $color;
+  }
+}
+
+// 文本居中方式(text-algin)
+@each $var in (left, center, right) {
+  .text-#{$var} {
+    text-align: $var;
+  }
+}
+
+@each $sizeKey, $size in $font-sizes {
+  .fs-#{$sizeKey} {
+    font-size: $size * $base-font-size;
+  }
+}
+
+.wrap {
+  width: 1200px;
+  margin: 0 auto;
+  height: inherit;
+}
+
+/** 布局 */
+.app-container {
+  display: flex;
+  justify-content: space-between;
+  margin: 20px 0;
+  .content {
+    width: 70%;
+  }
+  .sidebar {
+    width: 25%;
+    background-color: #fff;
+  }
+}
+
+/** 文章列表页样式 */
+.article-list {
+  padding: 15px;
+  background-color: #fff;
+  .article-item {
+    position: relative;
+    display: flex;
+    justify-content: space-between;
+    padding: 10px 0;
+    border-bottom: 1px solid #eee;
+    &:hover .thumbnail {
+      transform: scale(1.075);
+    }
+    &::after {
+      content: "";
+      position: absolute;
+      bottom: -1px;
+      width: 0;
+      height: 1px;
+      transition: width 0.5s;
+    }
+    &:hover::after {
+      width: 100%;
+      background-color: #1890ff;
+    }
+    .article-thumbnail {
+      margin-right: 10px;
+      overflow: hidden;
+      border-radius: 6px;
+      .thumbnail {
+        display: block;
+        width: 240px;
+        height: 160px;
+        background-color: #fff;
+        transition: 0.4s ease-in-out;
+      }
+    }
+    .article-content {
+      position: relative;
+      flex: 1;
+      .title {
+        height: 22px;
+        line-height: 22px;
+        font-size: 18px;
+        overflow: hidden;
+        text-overflow: ellipsis;
+        white-space: nowrap;
+        font-weight: 500;
+        .classify {
+          position: relative;
+          margin-right: 10px;
+          padding: 3px 5px;
+          font-size: 14px;
+          color: #fff;
+          border-radius: 6px;
+          background-color: #1890ff;
+          &::after {
+            content: "";
+            position: absolute;
+            right: -10px;
+            top: 50%;
+            transform: translateY(-50%);
+            border: 5px solid transparent;
+            border-left-color: #1890ff;
+          }
+        }
+      }
+      .summary {
+        display: -webkit-box;
+        -webkit-line-clamp: 4;
+        -webkit-box-orient: vertical;
+        margin: 10px auto 20px;
+        height: 90px;
+        overflow: hidden;
+        color: #555;
+        line-height: 24px;
+        font-size: 14px;
+        word-break: break-word;
+        text-overflow: ellipsis;
+      }
+      .article-info {
+        display: flex;
+        align-items: flex-end;
+        justify-content: space-between;
+        font-size: 12px;
+        .article-meta {
+          font-size: 12px;
+          color: #999;
+          span {
+            margin-right: 8px;
+          }
+        }
+        a:hover {
+          color: #1890ff;
+        }
+      }
+    }
+  }
+}
