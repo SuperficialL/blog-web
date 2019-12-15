@@ -78,7 +78,8 @@ export default {
     },
     search() {
       // 查询
-      this.$router.push({ name: "search", query: { search: this.keywords } });
+      this.$message.success("查询功能博主正在开发中!");
+      // this.$router.push({ name: "search", query: { search: this.keywords } });
     },
     showMenu() {
       // 显示隐藏手机端菜单

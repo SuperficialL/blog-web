@@ -2,17 +2,9 @@
   <footer class="footer">
     <div class="footer-top-inner">
       <ul class="links-wrap">
-        <li class="link"><a href="">关于我们</a></li>
-        <li class="link"><a href="">关于我们</a></li>
-        <li class="link"><a href="">关于我们</a></li>
-        <li class="link"><a href="">关于我们</a></li>
-        <li class="link"><a href="">关于我们</a></li>
-        <li class="link"><a href="">关于我们</a></li>
-        <li class="link"><a href="">关于我们</a></li>
-        <li class="link"><a href="">关于我们</a></li>
-        <li class="link"><a href="">关于我们</a></li>
-        <li class="link"><a href="">关于我们</a></li>
-        <li class="link"><a href="">关于我们</a></li>
+        <li class="link" v-for="(link, i) in friendsLink" :key="i">
+          <a :href="link.url" target="_blank">{{ link.name }}</a>
+        </li>
       </ul>
     </div>
     <div class="footer-bottom-inner">
@@ -26,19 +18,13 @@
 </template>
 
 <script>
-// import { mapState } from 'vuex'
-
 export default {
   name: "Footer",
   data() {
     return {
-      toTopShow: false
+      toTopShow: false,
+      friendsLink: []
     };
-  },
-  computed: {
-    // ...mapState({
-    //   blogInfo: state => state.base.blogInfo
-    // })
   },
   methods: {
     handleScroll() {
@@ -75,8 +61,6 @@ export default {
 
 <style lang="scss" scoped>
 @import "@/assets/scss/_variable.scss";
-
-// @import "@/style.scss";
 
 .footer {
   width: 100%;

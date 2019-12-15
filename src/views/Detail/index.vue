@@ -104,9 +104,7 @@ export default {
   },
   methods: {
     async fetch() {
-      console.log(this.id);
       const res = await getArticle(this.id);
-      console.log(res);
       if (res.code === 200) {
         this.article = res.data;
       }
