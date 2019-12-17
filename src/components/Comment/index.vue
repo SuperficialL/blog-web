@@ -107,11 +107,7 @@ import { dateFormat } from "@/utils/dateFormat";
 export default {
   name: "Comment",
   inject: ["reload"],
-<<<<<<< HEAD
   data() {
-=======
-  data () {
->>>>>>> origin/master
     return {
       comments: [],
       counts: Number,
@@ -146,11 +142,7 @@ export default {
       }
     };
   },
-<<<<<<< HEAD
   created() {
-=======
-  created () {
->>>>>>> origin/master
     // 获取评论列表
     API.getComments({
       article: this.$route.params.id,
@@ -169,44 +161,28 @@ export default {
       });
   },
   methods: {
-<<<<<<< HEAD
     contentValidate() {
-=======
-    contentValidate () {
->>>>>>> origin/master
       // 验证评论内容
       if (this.content.value === "") {
         this.content.validate = true;
         this.content.msg = "来点内容吧!";
       }
     },
-<<<<<<< HEAD
     authorValidate() {
-=======
-    authorValidate () {
->>>>>>> origin/master
       // 验证评论内容
       if (this.author.value === "") {
         this.author.validate = true;
         this.author.msg = "你还没署名呢!";
       }
     },
-<<<<<<< HEAD
     emailValidate() {
-=======
-    emailValidate () {
->>>>>>> origin/master
       // 验证评论内容
       if (this.email.value === "") {
         this.email.validate = true;
         this.email.msg = "不写邮箱收不到回复提示哦!";
       }
     },
-<<<<<<< HEAD
     addComment() {
-=======
-    addComment () {
->>>>>>> origin/master
       // 添加评论
       this.contentValidate();
       this.authorValidate();
@@ -234,9 +210,8 @@ export default {
           user_agent: navigator.userAgent
         };
         API.postComment(data)
-          .then(response => {
+          .then(res => {
             // 提交评论
-            console.log(response);
             this.reload();
             this.content.value = "";
             this.author.value = "";
@@ -244,15 +219,11 @@ export default {
             this.url.value = "";
           })
           .catch(error => {
-            console.log(error);
+            window.console.log(error);
           });
       }
     },
-<<<<<<< HEAD
     getMore() {
-=======
-    getMore () {
->>>>>>> origin/master
       if (this.totalPage > this.currentPage) {
         this.currentPage++;
         API.getComments({
@@ -263,17 +234,13 @@ export default {
             this.comments = [...this.comments, ...response.results];
           })
           .catch(error => {
-            console.log(error);
+            window.console.log(error);
           });
       } else {
         this.showNextMore = "已经没有更多了！";
       }
     },
-<<<<<<< HEAD
     showCommentControl() {
-=======
-    showCommentControl () {
->>>>>>> origin/master
       this.visible = !this.visible;
     }
   },

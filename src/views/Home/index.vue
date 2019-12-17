@@ -1,5 +1,5 @@
 <template>
-  <div class="app-container">
+  <div class="wrap">
     <div class="content">
       <section class="article-list">
         <article
@@ -69,7 +69,6 @@
         </el-pagination>
       </section>
     </div>
-
     <div class="sidebar"></div>
   </div>
 </template>

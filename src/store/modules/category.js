@@ -8,7 +8,7 @@ const state = {
 };
 
 const mutations = {
-  UPDATE_ARTICLES (state, data) {
+  UPDATE_ARTICLES(state, data) {
     state.articleList = data.results;
     state.count = data.count;
     state.description = data;
@@ -17,11 +17,10 @@ const mutations = {
 
 const actions = {
   // 获取文章列表信息
-  GET_ARTICLES ({ commit, state }, params) {
+  GET_ARTICLES({ commit, state }, params) {
     return new Promise((resolve, reject) => {
       getArticles(params)
         .then(data => {
-          console.log("文章", data);
           commit("UPDATE_ARTICLES", data);
           resolve(data);
         })

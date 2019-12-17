@@ -1,0 +1,123 @@
+/*
+ * @Author: Superficial
+ * @Date: 2019-12-17 14:30:46
+ * @LastEditTime: 2019-12-17 17:52:32
+ * @Description: 文章样式
+ */
+/** 文章列表页样式 */
+.article-list {
+  padding: 15px;
+  background-color: #fff;
+  border-radius: 6px;
+  overflow: hidden;
+
+  .article-item {
+    position: relative;
+    display: flex;
+    justify-content: space-between;
+    flex-wrap: wrap;
+    padding: 10px 0;
+    border-bottom: 1px solid #eee;
+
+    &:hover .thumbnail {
+      transform: scale(1.075);
+    }
+
+    &::after {
+      content: "";
+      position: absolute;
+      bottom: -1px;
+      width: 0;
+      height: 1px;
+      transition: width 0.5s;
+    }
+
+    &:hover::after {
+      width: 100%;
+      background-color: #1890ff;
+    }
+
+    .article-thumbnail {
+      margin-right: 10px;
+      overflow: hidden;
+      border-radius: 6px;
+
+      .thumbnail {
+        display: block;
+        width: 240px;
+        height: 160px;
+        background-color: #fff;
+        transition: 0.4s ease-in-out;
+      }
+    }
+
+    .article-content {
+      position: relative;
+      flex: 1;
+
+      .title {
+        height: 22px;
+        line-height: 22px;
+        font-size: 18px;
+        overflow: hidden;
+        text-overflow: ellipsis;
+        white-space: nowrap;
+        font-weight: 500;
+
+        .classify {
+          position: relative;
+          margin-right: 10px;
+          padding: 3px 5px;
+          font-size: 14px;
+          color: #fff;
+          border-radius: 6px;
+          background-color: #1890ff;
+
+          &::after {
+            content: "";
+            position: absolute;
+            right: -10px;
+            top: 50%;
+            transform: translateY(-50%);
+            border: 5px solid transparent;
+            border-left-color: #1890ff;
+          }
+        }
+      }
+
+      .summary {
+        display: -webkit-box;
+        -webkit-line-clamp: 4;
+        -webkit-box-orient: vertical;
+        margin: 10px auto 20px;
+        height: 90px;
+        overflow: hidden;
+        color: #555;
+        line-height: 24px;
+        font-size: 14px;
+        word-break: break-word;
+        text-overflow: ellipsis;
+      }
+
+      .article-info {
+        display: flex;
+        align-items: flex-end;
+        justify-content: space-between;
+        font-size: 12px;
+
+        .article-meta {
+          font-size: 12px;
+          color: #999;
+
+          span {
+            margin-right: 8px;
+          }
+        }
+
+        a:hover {
+          color: #1890ff;
+        }
+      }
+    }
+  }
+}

@@ -60,8 +60,6 @@ export default {
 </script>
 
 <style lang="scss" scoped>
-@import "@/assets/scss/_variable.scss";
-
 .footer {
   width: 100%;
   background-color: #555e67;
@@ -98,7 +96,7 @@ export default {
     z-index: 999;
     width: 32px;
     color: #fff;
-    background-color: $background-color;
+    background-color: #e74c3c;
     cursor: pointer;
     transition: 0.7s;
     transform: translateX(100px);

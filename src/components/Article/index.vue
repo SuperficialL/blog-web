@@ -94,7 +94,7 @@ export default {
       this.articles = res.data;
     },
     handleSizeChange(val) {
-      console.log(`每页 ${val} 条`);
+      window.console.log(`每页 ${val} 条`);
     },
     handleCurrentChange(page) {
       // API.getArticles({

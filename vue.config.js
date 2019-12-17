@@ -15,15 +15,26 @@ module.exports = {
   productionSourceMap: false,
   // css相关配置
   css: {
-    loaderOptions: {}
+    extract: true,
+    sourceMap: false,
+    requireModuleExtension: true,
+    loaderOptions: {
+      scss: {
+        prependData: `@import "@/assets/scss/_variable.scss";`
+      }
+    }
   },
 
   devServer: {
     proxy: {
       "/api": {
-        target: "http://127.0.0.1:3000",
+        // target: "http://127.0.0.1:3000",
+        target: "http://www.zhangwurui.net",
         changeOrigin: true,
-        ws: true
+        ws: true,
+        pathRewrite: {
+          "^/api": "api"
+        }
       },
       "/uploads": {
         target: "http://127.0.0.1:3000/uploads",
@@ -47,24 +58,27 @@ module.exports = {
   chainWebpack: config => {
     /* 添加分析工具 */
     if (process.env.NODE_ENV === "production") {
-      config.mode = "production";
       config
         .plugin("webpack-bundle-analyzer")
         .use(require("webpack-bundle-analyzer").BundleAnalyzerPlugin)
         .end();
-
+      // 删除预加载
       config.plugins.delete("preload");
       config.plugins.delete("prefetch");
+
+      // 压缩代码
+      config.optimization.minimize(true);
+      // 分割代码
+      config.optimization.splitChunks({
+        chunks: "all"
+      });
 
       return {
         plugins: [
           new CompressionPlugin({
-            test: /\.js$|\.html$|\.css/,
-            // 匹配文件名
-            threshold: 1024,
-            // 对超过1k的数据进行压缩
-            deleteOriginalAssets: false
-            // 是否删除原文件
+            test: /\.js$|\.html$|\.css/, //匹配文件名
+            threshold: 10240, //对超过10k的数据进行压缩
+            deleteOriginalAssets: false //是否删除原文件
           })
         ]
       };

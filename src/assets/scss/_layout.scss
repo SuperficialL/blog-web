@@ -1,0 +1,62 @@
+/*
+ * @Author: Superficial
+ * @Date: 2019-12-17 14:33:52
+ * @LastEditTime: 2019-12-17 19:12:53
+ * @Description: 布局类样式
+ */
+
+/** 容器类样式 */
+.wrap {
+  width: 1200px;
+  margin: 0 auto;
+  height: inherit;
+}
+
+
+@media screen and (max-width: 1200px) {
+  .header {
+    display: none;
+  }
+
+  .wrap {
+
+    .content {
+      width: 100%;
+    }
+
+    .sidebar {
+      display: none;
+    }
+  }
+}
+
+@media screen and (max-width: 768px) {
+  .wrap {
+    .content {
+      width: 100%;
+    }
+
+    .sidebar {
+      display: none;
+    }
+  }
+}
+
+/** 布局 */
+.main {
+
+  .wrap {
+    display: flex;
+    justify-content: space-between;
+    margin: 20px auto;
+
+    .content {
+      width: 70%;
+    }
+
+    .sidebar {
+      width: 25%;
+      background-color: #fff;
+    }
+  }
+}

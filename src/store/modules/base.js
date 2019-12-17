@@ -23,34 +23,34 @@ const getters = {
 };
 
 const mutations = {
-  UPDATE_MENU (state, data) {
+  UPDATE_MENU(state, data) {
     state.navigation = data.results;
   },
-  UPDATE_BlogInfo (state, blogInfo) {
+  UPDATE_BlogInfo(state, blogInfo) {
     if (Array.isArray(blogInfo)) {
       state.blogInfo = blogInfo[0];
     }
   },
-  UPDATE_BANNER (state, data) {
+  UPDATE_BANNER(state, data) {
     state.bannerList = data;
   },
-  UPDATE_lINKS (state, friendLink) {
+  UPDATE_lINKS(state, friendLink) {
     state.friendLink = friendLink.results;
   },
-  UPDATE_TAGS (state, tags) {
+  UPDATE_TAGS(state, tags) {
     state.tags = tags.results;
   },
-  UPDATE_COMMENTS (state, comments) {
+  UPDATE_COMMENTS(state, comments) {
     state.comments = comments.results;
   },
-  UPDATE_LOADING (state, response) {
+  UPDATE_LOADING(state, response) {
     state.isLoading = response;
   }
 };
 
 const actions = {
   // 获取导航栏
-  GET_MENU ({ commit, state }, params) {
+  GET_MENU({ commit, state }, params) {
     return new Promise((resolve, reject) => {
       getMenu(params)
         .then(data => {
@@ -64,7 +64,7 @@ const actions = {
   },
 
   // 获取站点信息
-  GET_BLOGINFO ({ commit, state }, params) {
+  GET_BLOGINFO({ commit, state }, params) {
     return new Promise((resolve, reject) => {
       getSiteInfo(params)
         .then(data => {
@@ -78,7 +78,7 @@ const actions = {
   },
 
   // 获取友情链接
-  GET_FriendLink ({ commit, state }, params) {
+  GET_FriendLink({ commit, state }, params) {
     return new Promise((resolve, reject) => {
       getFriendLink(params)
         .then(data => {
@@ -92,7 +92,7 @@ const actions = {
   },
 
   // 获取轮播
-  GET_BANNER ({ commit, state }, params) {
+  GET_BANNER({ commit, state }, params) {
     return new Promise((resolve, reject) => {
       getIndexBanner(params)
         .then(data => {
@@ -106,7 +106,7 @@ const actions = {
   },
 
   // 获取标签集合
-  GET_TAGS ({ commit, state }, params) {
+  GET_TAGS({ commit, state }, params) {
     return new Promise((resolve, reject) => {
       getTags(params)
         .then(data => {
@@ -120,7 +120,7 @@ const actions = {
   },
 
   // 获取首页评论
-  GET_COMMENTS ({ commit, state }, params) {
+  GET_COMMENTS({ commit, state }, params) {
     return new Promise((resolve, reject) => {
       getComments(params)
         .then(data => {
@@ -133,7 +133,7 @@ const actions = {
     });
   },
 
-  FETCH_LOADING ({ commit }, params) {
+  FETCH_LOADING({ commit }, params) {
     commit("UPDATE_LOADING", params);
   }
 };

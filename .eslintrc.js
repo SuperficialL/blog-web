@@ -5,11 +5,7 @@ module.exports = {
     es6: true,
     node: true
   },
-  extends: ["plugin:vue/essential", "@vue/standard"],
-  rules: {
-    "no-console": process.env.NODE_ENV === "production" ? "error" : "off",
-    "no-debugger": process.env.NODE_ENV === "production" ? "error" : "off"
-  },
+  extends: ["plugin:vue/essential", "@vue/prettier"],
   parserOptions: {
     parser: "babel-eslint",
     ecmaVersion: 2018,
@@ -17,16 +13,12 @@ module.exports = {
   },
   plugins: ["vue"],
   rules: {
+    "no-console": process.env.NODE_ENV === "production" ? "error" : "off",
+    "no-debugger": process.env.NODE_ENV === "production" ? "error" : "off",
     indent: [1, 2],
     "linebreak-style": ["error", "windows"],
-    quotes: ["error", "double"],
+    // quotes: ["error", "double"],
     semi: ["error", "always"],
     "no-unused-vars": ["error", { args: "none" }]
-  },
-
-  parserOptions: {
-    parser: "babel-eslint"
-  },
-
-  extends: ["plugin:vue/essential", "@vue/prettier"]
+  }
 };

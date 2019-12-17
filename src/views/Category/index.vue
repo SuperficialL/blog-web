@@ -1,5 +1,5 @@
 <template>
-  <div class="app-container">
+  <div class="wrap">
     <div class="content">
       <section class="article-list">
         <article
@@ -90,6 +90,7 @@ export default {
       }
     };
   },
+  props: ["title"],
   filters: {
     dateFormat
   },

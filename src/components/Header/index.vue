@@ -102,8 +102,6 @@ export default {
 </script>
 
 <style lang="scss" scoped>
-@import "@/assets/scss/_variable.scss";
-
 .header {
   position: relative;
   width: 100%;

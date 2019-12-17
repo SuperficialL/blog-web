@@ -5,14 +5,14 @@ const state = {
 };
 
 const mutations = {
-  UPDATE_ARTICLE_DETAIL (state, data) {
+  UPDATE_ARTICLE_DETAIL(state, data) {
     state.article = data;
   }
 };
 
 const actions = {
   // 获取文章详情
-  GET_ARTICLE_DETAIL ({ commit, state }, params) {
+  GET_ARTICLE_DETAIL({ commit, state }, params) {
     return new Promise((resolve, reject) => {
       getArticleDetail(params)
         .then(data => {
