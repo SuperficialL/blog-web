@@ -1,31 +1,29 @@
 /*
  * @Author: Superficial
  * @Date: 2019-12-17 14:33:52
- * @LastEditTime: 2019-12-17 19:41:40
+ * @LastEditTime : 2019-12-18 08:32:22
  * @Description: 布局类
  */
 
 /** 容器类样式 */
 .wrap {
   width: 1200px;
-  margin: 20px auto;
+  margin: 0 auto;
   height: inherit;
 }
 
 /** 布局 */
-.main {
+.wrap {
+  display: flex;
+  justify-content: space-between;
 
-  .wrap {
-    display: flex;
-    justify-content: space-between;
-
-    .content {
-      width: 70%;
-    }
-
-    .sidebar {
-      width: 25%;
-      background-color: #fff;
-    }
+  .content {
+    width: 70%;
   }
+
+  .sidebar {
+    width: 25%;
+    background-color: #fff;
+  }
+
 }

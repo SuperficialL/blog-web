@@ -40,11 +40,13 @@
       </div>
       <div class="search-box" :class="{ show: isShowSearch }">
         <el-input
+          size="small"
           v-model="keywords"
           placeholder="请输入关键字"
-          @keyup.enter="search"
+          @keyup.enter.native="search"
         ></el-input>
         <el-button
+          size="small"
           slot="append"
           icon="el-icon-search"
           @click="search"
@@ -106,7 +108,7 @@ export default {
   position: relative;
   width: 100%;
   height: 60px;
-  z-index: 999;
+  z-index: 2019;
   background-color: #1c2327;
   .wrap {
     display: flex;

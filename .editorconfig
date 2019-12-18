@@ -1,6 +1,9 @@
 [*.{js,jsx,ts,tsx,vue}]
-indent_style = space
-indent_size = 2
-trim_trailing_whitespace = true
-insert_final_newline = true
-end_of_line = crlf
+root = true # 是否是顶级配置文件
+charset = utf-8 # 编码格式
+indent_style = space # 缩进方式
+indent_size = 2 # 缩进大小
+end_of_line = crlf # 换行符
+trim_trailing_whitespace = true # 是否删除行尾空格
+insert_final_newline = true # 是否让文件以空行结束
+

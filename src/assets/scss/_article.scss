@@ -1,10 +1,9 @@
 /*
  * @Author: Superficial
  * @Date: 2019-12-17 14:30:46
- * @LastEditTime: 2019-12-17 17:52:32
+ * @LastEditTime : 2019-12-18 09:49:43
  * @Description: 文章样式
  */
-/** 文章列表页样式 */
 .article-list {
   padding: 15px;
   background-color: #fff;
@@ -15,8 +14,7 @@
     position: relative;
     display: flex;
     justify-content: space-between;
-    flex-wrap: wrap;
-    padding: 10px 0;
+    padding: 20px 0;
     border-bottom: 1px solid #eee;
 
     &:hover .thumbnail {
@@ -38,15 +36,14 @@
     }
 
     .article-thumbnail {
+      display: block;
       margin-right: 10px;
       overflow: hidden;
       border-radius: 6px;
 
       .thumbnail {
-        display: block;
         width: 240px;
         height: 160px;
-        background-color: #fff;
         transition: 0.4s ease-in-out;
       }
     }
@@ -56,19 +53,19 @@
       flex: 1;
 
       .title {
-        height: 22px;
-        line-height: 22px;
-        font-size: 18px;
+        // font-size: 18px;
         overflow: hidden;
         text-overflow: ellipsis;
         white-space: nowrap;
         font-weight: 500;
+        vertical-align: middle;
 
         .classify {
+          vertical-align: middle;
           position: relative;
           margin-right: 10px;
           padding: 3px 5px;
-          font-size: 14px;
+          font-size: 12px;
           color: #fff;
           border-radius: 6px;
           background-color: #1890ff;
@@ -82,6 +79,10 @@
             border: 5px solid transparent;
             border-left-color: #1890ff;
           }
+        }
+
+        a {
+          vertical-align: middle;
         }
       }
 
@@ -112,10 +113,6 @@
           span {
             margin-right: 8px;
           }
-        }
-
-        a:hover {
-          color: #1890ff;
         }
       }
     }

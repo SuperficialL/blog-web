@@ -1,7 +1,7 @@
 /*
  * @Author: Superficial
  * @Date: 2019-12-17 19:34:39
- * @LastEditTime: 2019-12-17 19:41:27
+ * @LastEditTime : 2019-12-18 09:46:30
  * @Description: 媒体查询
  */
 
@@ -10,12 +10,49 @@
  * @description: 响应屏幕小于1200px时的整体布局样式
  */
 @media screen and (max-width: 1200px) {
-  .header {
-    display: none;
-  }
-
   .wrap {
     width: 94%;
+
+    // .nav-container {
+    //   width: 100%;
+
+    //   .nav-menu {
+    //     display: block;
+    //   }
+    // }
+
+    .search-box {
+      display: none !important;
+    }
+
+    .content {
+      width: 70%;
+    }
+
+    .sidebar {
+      width: 25%;
+    }
+  }
+}
+
+/**
+ * @description: 响应屏幕小于992px时的整体布局样式
+ */
+@media screen and (max-width: 992px) {
+  .wrap {
+    width: 94%;
+
+    .nav-container {
+      width: 100%;
+
+      .nav-menu {
+        display: block;
+      }
+    }
+
+    .search-box {
+      display: none !important;
+    }
 
     .content {
       width: 100%;
@@ -26,14 +63,26 @@
     }
   }
 }
+
 
 /**
  * @description: 响应屏幕小于768px时的整体布局样式
  */
 @media screen and (max-width: 768px) {
-
   .wrap {
     width: 90%;
+
+    .nav-container {
+      width: 100%;
+
+      .nav-menu {
+        display: block;
+      }
+    }
+
+    .search-box {
+      display: none;
+    }
 
     .content {
       width: 100%;
@@ -45,19 +94,44 @@
   }
 }
 
+
 /**
  * @description: 响应屏幕小于1200px时文章列表区域样式
  */
 @media screen and (max-width: 768px) {
-
   .article-list {
     .article-item {
+      flex-wrap: wrap;
+
       .article-thumbnail {
+        width: 100%;
         margin-right: 0;
+        margin-bottom: 10px;
+        text-align: center;
       }
 
       .article-content {
-        background-color: #fff;
+        .article-info {
+          flex-wrap: wrap;
+
+          .article-meta {
+            width: 100%;
+            margin-bottom: 10px;
+          }
+
+          .detail-btn {
+            width: 100%;
+            padding: 10px;
+            text-align: center;
+            background-color: #1890ff;
+            border-radius: 8px;
+            color: #fff;
+
+            i {
+              display: none;
+            }
+          }
+        }
       }
     }
   }

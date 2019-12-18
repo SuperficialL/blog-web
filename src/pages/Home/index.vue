@@ -49,6 +49,7 @@
                 </span>
               </div>
               <router-link
+                class="detail-btn"
                 :to="{ name: 'detail', params: { id: article._id } }"
               >
                 阅读全文
@@ -107,3 +108,11 @@ export default {
   }
 };
 </script>
+
+<style lang="scss" scoped>
+.wrap {
+  display: flex;
+  justify-content: space-between;
+  margin: 20px auto;
+}
+</style>

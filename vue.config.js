@@ -20,7 +20,7 @@ module.exports = {
     requireModuleExtension: true,
     loaderOptions: {
       scss: {
-        prependData: `@import "@/assets/scss/_variable.scss";`
+        prependData: "@import \"@/assets/scss/_variable.scss\";"
       }
     }
   },

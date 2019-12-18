@@ -22,7 +22,11 @@
               {{ article.likes }}
             </span>
           </div>
-          <div class="article-content" v-html="article.renderContent"></div>
+          <div
+            class="article-content"
+            v-html="article.renderContent"
+            v-highlight
+          ></div>
         </article>
       </section>
 

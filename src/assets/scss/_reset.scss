@@ -1,7 +1,7 @@
 /*
  * @Author: Superficial
  * @Date: 2019-12-17 14:30:56
- * @LastEditTime: 2019-12-17 14:32:37
+ * @LastEditTime : 2019-12-18 10:13:56
  * @Description: 浏览器样式初始化
  */
 
@@ -17,15 +17,39 @@ h2,
 h3,
 h4,
 h5,
-h6,
-p,
-body {
+h6 {
   margin: 0;
   padding: 0;
   font-weight: 500;
 }
 
+h1 {
+  font-size: 32px;
+}
 
+h2 {
+  font-size: 24px;
+}
+
+h3 {
+  font-size: 20px;
+}
+
+h4 {
+  font-size: 16px;
+}
+
+h5 {
+  font-size: 14px;
+}
+
+h6 {
+  font-size: 13px;
+}
+
+
+p,
+body,
 ul,
 ol {
   margin: 0;
@@ -34,6 +58,7 @@ ol {
 
 
 a {
+  font-size: inherit;
   transition: color 0.4s;
   color: #666;
   text-decoration: none;
@@ -57,13 +82,12 @@ img {
   border: none;
 }
 
-p code {
+code {
   padding: 2px 5px;
   font-size: 85%;
   background-color: #f7f7f9;
   border-radius: 3px;
   border: 1px solid #e3edf3;
-  border-radius: 3px;
   color: #d14;
 }
 
@@ -73,7 +97,7 @@ p code {
 
 /*滚动条整体样式*/
 ::-webkit-scrollbar {
-  width: 6px;
+  width: 3px;
   height: 1px;
 }
 

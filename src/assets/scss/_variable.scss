@@ -1,8 +1,14 @@
-/* Header 头部变量 */
+/*
+ * @Author: Superficial
+ * @Date: 2019-12-17 19:07:55
+ * @LastEditTime : 2019-12-18 10:38:37
+ * @Description: 主体变量
+ */
 
 // 一级导航栏背景色
 $background-color: #e74c3c;
 $link-color: #00c1de;
+
 // 搜索
 $search-bgc: #d52d1a;
 
@@ -14,6 +20,7 @@ $sub-link-hover: rgb(87, 102, 99);
 
 // 文字尺寸(font-size)
 $base-font-size: 1rem;
+
 $font-sizes: (xs: 0.7692,
   //10px
   sm: 0.9231,
@@ -61,3 +68,6 @@ $size in $font-sizes {
     font-size: $size * $base-font-size;
   }
 }
+
+// 默认样式
+$default: #1890ff;

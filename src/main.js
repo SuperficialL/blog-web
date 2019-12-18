@@ -12,6 +12,17 @@ Vue.use(ElementUI);
 
 // import "./plugins/element.js";
 
+// 代码高亮
+import hljs from "highlight.js";
+import "highlight.js/styles/googlecode.css";
+
+Vue.directive("highlight", function (el) {
+  let blocks = el.querySelectorAll("pre code");
+  blocks.forEach((block) => {
+    hljs.highlightBlock(block);
+  });
+});
+
 Vue.config.productionTip = false;
 
 new Vue({
