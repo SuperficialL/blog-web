@@ -6,7 +6,7 @@ const routes = [
   {
     name: "home",
     path: "/",
-    component: () => import("../views/Home"),
+    component: () => import("../pages/Home"),
     meta: {
       title: "首页"
     }
@@ -15,16 +15,16 @@ const routes = [
     name: "category",
     path: "/category/:id",
     props: true,
-    component: () => import("../views/Category"),
+    component: () => import("../pages/Category"),
     meta: {
       title: "分类列表"
     }
   },
   {
     name: "detail",
-    path: "detail/:id",
+    path: "/detail/:id",
     props: true,
-    component: () => import("../views/Detail"),
+    component: () => import("../pages/Detail"),
     meta: {
       title: "详情"
     }
