@@ -1,7 +1,7 @@
 /*
  * @Author: Superficial
  * @Date: 2019-12-17 14:30:46
- * @LastEditTime : 2019-12-18 09:49:43
+ * @LastEditTime : 2019-12-20 12:50:27
  * @Description: 文章样式
  */
 .article-list {
@@ -40,6 +40,8 @@
       margin-right: 10px;
       overflow: hidden;
       border-radius: 6px;
+      width: 240px;
+      height: 160px;
 
       .thumbnail {
         width: 240px;
@@ -90,7 +92,7 @@
         display: -webkit-box;
         -webkit-line-clamp: 4;
         -webkit-box-orient: vertical;
-        margin: 10px auto 20px;
+        margin: 10px auto;
         height: 90px;
         overflow: hidden;
         color: #555;
