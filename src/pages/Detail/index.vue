@@ -32,7 +32,7 @@
 
       <section class="comment-wrap">
         <h4 class="comment-title">
-          共 3 条评论关于 “计算浏览器滚动条在各浏览器的宽度”
+          共 {{ total }} 条评论关于 “{{ article.title }}”
         </h4>
         <div class="comment-form">
           <div class="comment-form-content">
@@ -40,41 +40,76 @@
               id=""
               cols="100"
               rows="5"
+              v-model="comment.content"
               placeholder="请填写正确QQ邮箱，以便于更好的与您取得联系，否则您的留言可能会被删除!"
             ></textarea>
           </div>
           <div class="comment-info">
-            <div class="comment-input comment-form-author">
-              <label for="author"></label>
-              <input type="text" id="author" placeholder="昵称" />
+            <div class="comment-input comment-form-username">
+              <label for="username"></label>
+              <input
+                type="text"
+                id="username"
+                v-model="comment.username"
+                placeholder="昵称*"
+              />
             </div>
             <div class="comment-input comment-form-email">
               <label for="email"></label>
-              <input type="text" id="email" placeholder="邮箱" />
+              <input
+                type="text"
+                id="email"
+                v-model="comment.email"
+                placeholder="邮箱*"
+              />
             </div>
             <div class="comment-input comment-form-site">
               <label for="site"></label>
-              <input type="text" id="site" placeholder="站点" />
+              <input
+                type="text"
+                id="site"
+                v-model="comment.site"
+                placeholder="站点"
+              />
             </div>
           </div>
           <div class="comment-btn">
-            <input type="submit" class="submit-btn" value="发表评论" />
+            <input
+              type="submit"
+              class="submit-btn"
+              value="发表评论"
+              @click="submit"
+            />
           </div>
         </div>
         <div class="comment-list">
-          <div class="comment-item">
+          <div
+            class="comment-item"
+            v-for="comment in comments"
+            :key="comment._id"
+          >
             <div class="comment-avatar">
               <img src="../../assets/images/python.jpg" alt="" />
             </div>
             <div class="comment-body">
               <div class="comment-header">
-                重庆崽儿brand Mac OS 10.14.6 Chrome 78 中国-杭州#1604
+                <a :href="comment.site" class="username">
+                  {{ comment.username }}
+                </a>
+                <!-- <span><i></i>系统</span>
+                <span><i></i>浏览器</span>
+                <span><i></i>地区</span> -->
               </div>
               <div class="comment-content">
-                最后面的图片访问不了咯～🌚
+                {{ comment.content }}
               </div>
               <div class="comment-footer">
-                <span class="created-time">1个月前</span>
+                <span class="created-time">
+                  {{ comment.created_time | dateFormat }}
+                </span>
+                <span class="like" @click="like">
+                  <i class="iconfont icon-dianzan"></i> 赞(0)
+                </span>
               </div>
             </div>
           </div>
@@ -82,18 +117,28 @@
       </section>
     </div>
 
-    <div class="sidebar"></div>
+    <sidebar></sidebar>
   </div>
 </template>
 
 <script>
+import Sidebar from "@/components/SideBar";
 import { getArticle } from "@/api/articles";
+import { getComments, postComment } from "@/api/comments";
 import { dateFormat } from "@/utils/filters";
 export default {
   name: "Detail",
+  components: {
+    Sidebar
+  },
   data() {
     return {
-      article: {}
+      article: {},
+      total: 0,
+      comments: [],
+      comment: {
+        article_id: this.id
+      }
     };
   },
   props: ["id", "title"],
@@ -107,20 +152,47 @@ export default {
     }
   },
   methods: {
-    async fetch() {
+    async fetchArticle() {
       const res = await getArticle(this.id);
       if (res.code === 200) {
         this.article = res.data;
       }
-    }
+    },
+
+    async fetchComments() {
+      const res = await getComments({ article_id: this.id });
+      if (res.code === 200) {
+        this.comments = res.data.comments;
+        this.total = res.data.total;
+      }
+    },
+
+    async submit() {
+      const res = await postComment(this.comment);
+      if (res.code === 200 && !res.errorCode) {
+        this.comment.created_time = dateFormat(new Date());
+        this.comments.unshift(this.comment);
+        this.$message.success(res.message);
+      } else {
+        this.$message.error(res.message);
+      }
+    },
+
+    async like() {}
   },
   created() {
-    this.fetch();
+    this.fetchArticle();
+    this.fetchComments();
   }
 };
 </script>
 
 <style lang="scss" scoped>
+.wrap {
+  display: flex;
+  justify-content: space-between;
+  margin: 20px auto;
+}
 .content {
   .article-wrap {
     .article {
@@ -150,7 +222,7 @@ export default {
     }
   }
   .comment-wrap {
-    margin: 10px 0;
+    margin-top: 20px;
     padding: 15px;
     background-color: #fff;
     border-radius: 6px;
@@ -162,7 +234,7 @@ export default {
       border-radius: 6px;
     }
     .comment-form {
-      margin: 10px 0;
+      margin-top: 20px;
       .comment-form-content {
         box-sizing: border-box;
         padding: 10px;
@@ -210,6 +282,13 @@ export default {
       .comment-item {
         position: relative;
         padding-left: 24px;
+        margin-top: 20px;
+        &:hover .comment-body {
+          background-color: hsla(0, 0%, 57.3%, 0.5);
+        }
+        &:hover img {
+          transform: rotate(360deg);
+        }
         .comment-avatar {
           position: absolute;
           left: 0;
@@ -221,22 +300,35 @@ export default {
           img {
             width: 100%;
             height: 100%;
+            transition: transform 0.5s;
           }
         }
         .comment-body {
           padding: 8px 8px 8px 36px;
           border-radius: 6px;
           background-color: rgba(197, 197, 197, 0.5);
-          // .comment-header {
-          //   .username {
-          //   }
-          // }
+          transition: background-color 0.5s;
+          .comment-header {
+            .username {
+              &:hover {
+                color: #1890ff;
+              }
+            }
+          }
           .comment-content {
             margin: 10px 0;
             line-height: 2;
           }
-          // .comment-footer {
-          // }
+          .comment-footer {
+            span {
+              margin-right: 10px;
+            }
+            // .created-time {
+            // }
+            .like {
+              cursor: pointer;
+            }
+          }
         }
       }
     }

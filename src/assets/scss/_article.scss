@@ -1,16 +1,16 @@
 /*
  * @Author: Superficial
  * @Date: 2019-12-17 14:30:46
- * @LastEditTime : 2019-12-20 12:50:27
+ * @LastEditTime : 2019-12-22 14:30:25
  * @Description: 文章样式
  */
-.article-list {
+.article-wrapper {
   padding: 15px;
   background-color: #fff;
   border-radius: 6px;
   overflow: hidden;
 
-  .article-item {
+  .article {
     position: relative;
     display: flex;
     justify-content: space-between;

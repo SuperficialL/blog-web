@@ -34,14 +34,14 @@ module.exports = {
       "/api": {
         // target: "http://127.0.0.1:3000",
         target: "http://www.zhangwurui.net",
-        changeOrigin: true,
-        ws: true
+        changeOrigin: true
+        // ws: true
       },
       "/uploads": {
         // target: "http://127.0.0.1:3000",
         target: "http://www.zhangwurui.net",
-        changeOrigin: true,
-        ws: true
+        changeOrigin: true
+        // ws: true
       }
     }
   },

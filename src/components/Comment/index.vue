@@ -157,7 +157,7 @@ export default {
         }
       })
       .catch(error => {
-        console.log(error);
+        window.console.log(error);
       });
   },
   methods: {

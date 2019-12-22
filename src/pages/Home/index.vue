@@ -1,12 +1,8 @@
 <template>
   <div class="wrap">
     <div class="content">
-      <section class="article-list">
-        <article
-          class="article-item"
-          v-for="article in articles"
-          :key="article._id"
-        >
+      <section class="article-wrapper">
+        <article class="article" v-for="article in articles" :key="article._id">
           <router-link
             class="article-thumbnail"
             :to="{ name: 'detail', params: { id: article._id } }"
@@ -70,18 +66,24 @@
         </el-pagination>
       </section>
     </div>
-    <div class="sidebar"></div>
+    <sidebar></sidebar>
   </div>
 </template>
 
 <script>
+import Sidebar from "@/components/SideBar";
 import { getArticles } from "@/api/articles";
+import { getTags } from "@/api/tags";
 import { dateFormat } from "@/utils/filters";
 export default {
   name: "Home",
+  components: {
+    Sidebar
+  },
   data() {
     return {
       articles: [],
+      tags: [],
       total: 0,
       query: {
         page: 1,
@@ -100,11 +102,21 @@ export default {
         this.total = res.data.total;
       }
     },
+
+    async fetchTags() {
+      const res = await getTags();
+      if (res.code === 200) {
+        this.tags = res.data.tags;
+      }
+    },
+
     handleSizeChange(val) {},
+
     handleCurrentChange(val) {}
   },
   created() {
     this.fetch();
+    this.fetchTags();
   }
 };
 </script>

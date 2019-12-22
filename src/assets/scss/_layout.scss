@@ -1,7 +1,7 @@
 /*
  * @Author: Superficial
  * @Date: 2019-12-17 14:33:52
- * @LastEditTime : 2019-12-18 08:32:22
+ * @LastEditTime : 2019-12-22 15:47:22
  * @Description: 布局类
  */
 
@@ -14,16 +14,11 @@
 
 /** 布局 */
 .wrap {
-  display: flex;
-  justify-content: space-between;
-
   .content {
     width: 70%;
   }
 
-  .sidebar {
+  .sidebar-wrapper {
     width: 25%;
-    background-color: #fff;
   }
-
 }

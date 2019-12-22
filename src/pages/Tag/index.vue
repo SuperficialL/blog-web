@@ -75,7 +75,7 @@ import Sidebar from "@/components/SideBar";
 import { getArticles } from "@/api/articles";
 import { dateFormat } from "@/utils/filters";
 export default {
-  name: "Category",
+  name: "Tag",
   components: {
     Sidebar
   },
@@ -83,7 +83,7 @@ export default {
     return {
       articles: [],
       total: 0,
-      category_id: this.$route.params.id,
+      article_id: this.$route.params.id,
       query: {
         page: 1,
         per_page: 10
@@ -96,14 +96,14 @@ export default {
   },
   watch: {
     $route() {
-      this.category_id = this.$route.params.id;
+      this.article_id = this.$route.params.id;
       this.fetch();
     }
   },
   methods: {
     async fetch() {
       let params = {
-        category: this.category_id
+        article_id: this.article_id
       };
       const res = await getArticles(params);
       if (res.code === 200) {

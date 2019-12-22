@@ -21,6 +21,15 @@ const routes = [
     }
   },
   {
+    name: "tag",
+    path: "/tag/:id",
+    props: true,
+    component: () => import("../pages/Tag"),
+    meta: {
+      title: "标签"
+    }
+  },
+  {
     name: "detail",
     path: "/detail/:id",
     props: true,
