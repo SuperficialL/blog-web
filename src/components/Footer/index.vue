@@ -8,11 +8,13 @@
       </ul>
     </div>
     <div class="footer-bottom-inner">
-      Copyright © Superficial Blog All Rights Reserved.
-      <a href="http://www.miibeian.gov.cn/" target="_blank">公安备案号</a>
+      CopyRight © Superficial Blog All Rights Reserved.
+      <a href="http://beian.miit.gov.cn/" target="_blank">
+        鄂ICP备19027646号-1
+      </a>
     </div>
-    <div class="back-to-end" @click="scrollToTop" :class="{ show: toTopShow }">
-      <i class="icon icon-top"></i>
+    <div class="back-to-top" @click="scrollToTop" :class="{ show: toTopShow }">
+      <i class="iconfont icon-back-top"></i>
     </div>
   </footer>
 </template>
@@ -89,14 +91,13 @@ export default {
     text-align: center;
     text-shadow: 0 -1px 0 #333;
   }
-  .back-to-end {
+  .back-to-top {
     position: fixed;
     right: 30px;
     bottom: 30px;
     z-index: 999;
     width: 32px;
     color: #fff;
-    background-color: #e74c3c;
     cursor: pointer;
     transition: 0.7s;
     transform: translateX(100px);
@@ -106,6 +107,7 @@ export default {
     }
     i {
       font-size: 30px;
+      color: #1890ff;
     }
     &.active {
       right: 30px;

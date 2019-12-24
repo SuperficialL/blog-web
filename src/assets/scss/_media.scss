@@ -1,35 +1,83 @@
 /*
  * @Author: Superficial
  * @Date: 2019-12-17 19:34:39
- * @LastEditTime : 2019-12-18 09:46:30
+ * @LastEditTime : 2019-12-24 21:44:23
  * @Description: 媒体查询
  */
-
 
 /**
  * @description: 响应屏幕小于1200px时的整体布局样式
  */
 @media screen and (max-width: 1200px) {
+  .header {
+    // display: none;
+    .header-container {
+      // .logo {
+      // }
+      .nav-container {
+        position: fixed;
+        top: 60px;
+        right: 0;
+        z-index: 1199;
+        width: 200px;
+        height: -webkit-calc(100% - 60px);
+        height: calc(100% - 60px);
+        margin: 0;
+        padding: 0 20px;
+        overflow-y: scroll;
+        -webkit-overflow-scrolling: touch;
+        background: #9466ff;
+        transition: 0.5s;
+        transform: translateX(100%);
+        .nav-menu {
+          -webkit-box-orient: vertical;
+          -webkit-box-direction: normal;
+          -ms-flex-direction: column;
+          flex-direction: column;
+          -webkit-box-pack: start;
+          -ms-flex-pack: start;
+          justify-content: flex-start;
+          .nav-item {
+            height: auto;
+            -webkit-tap-highlight-color: transparent;
+            & > .sub-menu {
+              top: 100%;
+              left: 0;
+              z-index: 9;
+              min-width: 100px;
+              overflow: hidden;
+              background: #9466ff;
+              transition: all 0.3s;
+              transform-origin: 0 0;
+              transform: rotateX(0);
+              a {
+                display: block;
+                padding: 10px 15px;
+              }
+              .sub-item:hover {
+                color: #337ab7;
+              }
+            }
+            // &:hover > ul {
+            //   transform: rotateX(0);
+            //   transition: all 0.3s;
+            // }
+          }
+        }
+      }
+      .search-wrapper {
+        display: none;
+      }
+    }
+  }
   .wrap {
     width: 94%;
-
-    // .nav-container {
-    //   width: 100%;
-
-    //   .nav-menu {
-    //     display: block;
-    //   }
-    // }
-
-    .search-box {
-      display: none !important;
-    }
 
     .content {
       width: 70%;
     }
 
-    .sidebar {
+    .sidebar-wrapper {
       width: 25%;
     }
   }
@@ -39,100 +87,151 @@
  * @description: 响应屏幕小于992px时的整体布局样式
  */
 @media screen and (max-width: 992px) {
-  .wrap {
-    width: 94%;
+  .header .header-container {
+    // .nav-container {
+    //   width: 100%;
 
-    .nav-container {
-      width: 100%;
-
-      .nav-menu {
+    //   .nav-menu {
+    //     display: block;
+    //   }
+    // }
+    .search-box {
+      & > i {
         display: block;
       }
+      .search-wrapper {
+        display: none;
+      }
     }
-
-    .search-box {
-      display: none !important;
-    }
+  }
+  .wrap {
+    width: 94%;
 
     .content {
       width: 100%;
     }
 
-    .sidebar {
+    .sidebar-wrapper {
       display: none;
     }
   }
 }
-
 
 /**
  * @description: 响应屏幕小于768px时的整体布局样式
  */
 @media screen and (max-width: 768px) {
+  .header {
+    .header-container {
+      // .logo {
+      // }
+      // .nav-container {
+      //   position: fixed;
+      //   top: 60px;
+      //   right: 0;
+      //   width: 100%;
+
+      //   .nav-menu {
+      //     display: block;
+      //   }
+      // }
+      .search-box {
+        & > i {
+          display: block;
+        }
+        .search-wrapper {
+          display: none;
+        }
+      }
+    }
+  }
   .wrap {
     width: 90%;
 
-    .nav-container {
-      width: 100%;
-
-      .nav-menu {
-        display: block;
-      }
-    }
-
-    .search-box {
-      display: none;
-    }
-
     .content {
       width: 100%;
-    }
-
-    .sidebar {
-      display: none;
-    }
-  }
-}
-
-
-/**
- * @description: 响应屏幕小于1200px时文章列表区域样式
- */
-@media screen and (max-width: 768px) {
-  .article-list {
-    .article-item {
-      flex-wrap: wrap;
-
-      .article-thumbnail {
-        width: 100%;
-        margin-right: 0;
-        margin-bottom: 10px;
-        text-align: center;
-      }
-
-      .article-content {
-        .article-info {
+      .article-wrapper {
+        .article {
           flex-wrap: wrap;
 
-          .article-meta {
+          .article-thumbnail {
             width: 100%;
+            margin-right: 0;
             margin-bottom: 10px;
+            text-align: center;
           }
 
-          .detail-btn {
-            width: 100%;
-            padding: 10px;
-            text-align: center;
-            background-color: #1890ff;
-            border-radius: 8px;
-            color: #fff;
+          .article-content {
+            .article-info {
+              flex-wrap: wrap;
 
-            i {
-              display: none;
+              .article-meta {
+                width: 100%;
+                margin-bottom: 10px;
+              }
+
+              .detail-btn {
+                width: 100%;
+                padding: 10px;
+                text-align: center;
+                background-color: #1890ff;
+                border-radius: 8px;
+                color: #fff;
+
+                i {
+                  display: none;
+                }
+              }
             }
           }
         }
       }
     }
+
+    .sidebar-wrapper {
+      display: none;
+    }
   }
 }
+
+/**
+ * @description: 响应屏幕小于1200px时文章列表区域样式
+ */
+// @media screen and (max-width: 768px) {
+//   .article-wrapper {
+//     .article {
+//       flex-wrap: wrap;
+
+//       .article-thumbnail {
+//         width: 100%;
+//         margin-right: 0;
+//         margin-bottom: 10px;
+//         text-align: center;
+//       }
+
+//       .article-content {
+//         .article-info {
+//           flex-wrap: wrap;
+
+//           .article-meta {
+//             width: 100%;
+//             margin-bottom: 10px;
+//           }
+
+//           .detail-btn {
+//             width: 100%;
+//             padding: 10px;
+//             text-align: center;
+//             background-color: #1890ff;
+//             border-radius: 8px;
+//             color: #fff;
+
+//             i {
+//               display: none;
+//             }
+//           }
+//         }
+//       }
+//     }
+//   }
+// }

@@ -1,6 +1,9 @@
 <template>
   <header class="header">
-    <div class="wrap">
+    <div class="header-container wrap">
+      <div class="logo">
+        <router-link to="/" tag="h2">SuperficialL Blog</router-link>
+      </div>
       <div class="nav-container" :class="{ show: isShow }">
         <ul class="nav-menu">
           <li class="nav-item">
@@ -16,7 +19,7 @@
               }"
             >
               {{ root.name }}
-              <i class="iconfont icon-down" v-if="root.children"></i>
+              <i class="iconfont icon-down" v-if="root.children.length"></i>
             </router-link>
             <ul class="sub-menu">
               <li
@@ -38,19 +41,22 @@
           </li>
         </ul>
       </div>
-      <div class="search-box" :class="{ show: isShowSearch }">
-        <el-input
-          size="small"
-          v-model="keywords"
-          placeholder="请输入关键字"
-          @keyup.enter.native="search"
-        ></el-input>
-        <el-button
-          size="small"
-          slot="append"
-          icon="el-icon-search"
-          @click="search"
-        ></el-button>
+      <div class="search-box">
+        <i class="iconfont icon-menu" @click="showMenu"></i>
+        <div class="search-wrapper">
+          <el-input
+            size="small"
+            v-model="keywords"
+            placeholder="请输入关键字"
+            @keyup.enter.native="search"
+          ></el-input>
+          <el-button
+            size="small"
+            slot="append"
+            icon="el-icon-search"
+            @click="search"
+          ></el-button>
+        </div>
       </div>
     </div>
   </header>
@@ -70,26 +76,35 @@ export default {
     };
   },
   methods: {
+    // 获取数据
     async fetch() {
-      // 获取数据
       const res = await getMenu();
       if (res.code === 200) {
         let navigation = res.data.categories;
         this.navigation = arr2tree(navigation);
       }
     },
+
+    // 查询
     search() {
-      // 查询
       this.$message.success("查询功能博主正在开发中!");
       // this.$router.push({ name: "search", query: { search: this.keywords } });
     },
+
+    // 显示隐藏手机端菜单
     showMenu() {
-      // 显示隐藏手机端菜单
-      if (this.isShowSearch) {
-        this.isShowSearch = !this.isShowSearch;
-      }
+      // if (this.isShowSearch) {
+      //   this.isShowSearch = !this.isShowSearch;
+      // }
       this.isShow = !this.isShow;
+      if (this.isShow) {
+        document.getElementsByTagName("body")[0].style.overflow = "hidden";
+      } else {
+        document.getElementsByTagName("body")[0].style.overflow = "";
+      }
     },
+
+    // 显示搜索
     showSearch() {
       if (this.isShow) {
         this.isShow = !this.isShow;
@@ -103,21 +118,29 @@ export default {
 };
 </script>
 
-<style lang="scss" scoped>
+<style lang="scss">
 .header {
   position: relative;
   width: 100%;
   height: 60px;
   z-index: 2019;
   background-color: #1c2327;
-  .wrap {
+  .header-container {
     display: flex;
     justify-content: space-between;
     align-items: center;
     height: inherit;
+    .logo {
+      cursor: pointer;
+      // h2 {
+      // }
+    }
     .nav-container {
       flex: 1;
       height: inherit;
+      &.show {
+        transform: translateX(0);
+      }
       .nav-menu {
         display: flex;
         height: inherit;
@@ -160,22 +183,17 @@ export default {
       }
     }
     .search-box {
-      display: flex;
-      align-items: center;
-      border-radius: 4px;
-      overflow: hidden;
-      input {
-        width: 160px;
-        height: 30px;
-        padding: 0 5px;
-      }
-      .anticon {
-        width: 30px;
-        height: 30px;
-        background: #e9eaed;
-        text-align: center;
-        line-height: 30px;
+      cursor: pointer;
+      & > i {
+        display: none;
+        font-size: 22px;
         cursor: pointer;
+      }
+      .search-wrapper {
+        display: flex;
+        align-items: center;
+        border-radius: 4px;
+        overflow: hidden;
       }
     }
   }

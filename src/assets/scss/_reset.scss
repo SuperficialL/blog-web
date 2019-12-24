@@ -1,7 +1,7 @@
 /*
  * @Author: Superficial
  * @Date: 2019-12-17 14:30:56
- * @LastEditTime : 2019-12-18 10:13:56
+ * @LastEditTime : 2019-12-22 18:23:18
  * @Description: 浏览器样式初始化
  */
 
@@ -47,7 +47,6 @@ h6 {
   font-size: 13px;
 }
 
-
 p,
 body,
 ul,
@@ -55,7 +54,6 @@ ol {
   margin: 0;
   padding: 0;
 }
-
 
 a {
   font-size: inherit;
@@ -80,15 +78,6 @@ img {
   max-width: 100%;
   max-height: 100%;
   border: none;
-}
-
-code {
-  padding: 2px 5px;
-  font-size: 85%;
-  background-color: #f7f7f9;
-  border-radius: 3px;
-  border: 1px solid #e3edf3;
-  color: #d14;
 }
 
 .iconfont {

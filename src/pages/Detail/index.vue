@@ -22,11 +22,7 @@
               {{ article.likes }}
             </span>
           </div>
-          <div
-            class="article-content"
-            v-html="article.renderContent"
-            v-highlight
-          ></div>
+          <div class="article-content" v-html="article.renderContent"></div>
         </article>
       </section>
 
@@ -126,6 +122,17 @@ import Sidebar from "@/components/SideBar";
 import { getArticle } from "@/api/articles";
 import { getComments, postComment } from "@/api/comments";
 import { dateFormat } from "@/utils/filters";
+import hljs from "highlight.js";
+import "highlight.js/styles/atom-one-dark.css";
+
+const highlightCode = () => {
+  const preEl = document.querySelectorAll("pre");
+
+  preEl.forEach(el => {
+    hljs.highlightBlock(el);
+  });
+};
+
 export default {
   name: "Detail",
   components: {
@@ -183,6 +190,13 @@ export default {
   created() {
     this.fetchArticle();
     this.fetchComments();
+  },
+  mounted() {
+    highlightCode();
+  },
+
+  updated() {
+    highlightCode();
   }
 };
 </script>
