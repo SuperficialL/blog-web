@@ -5,7 +5,10 @@
         <article class="article" v-for="article in articles" :key="article._id">
           <router-link
             class="article-thumbnail"
-            :to="{ name: 'detail', params: { id: article._id } }"
+            :to="{
+              name: 'detail',
+              params: { id: article._id, title: article.title }
+            }"
           >
             <img
               class="thumbnail"
@@ -17,7 +20,10 @@
             <h3 class="title">
               <span class="classify">{{ article.category.name }}</span>
               <router-link
-                :to="{ name: 'detail', params: { id: article._id } }"
+                :to="{
+                  name: 'detail',
+                  params: { id: article._id, title: article.title }
+                }"
               >
                 {{ article.title }}
               </router-link>
@@ -46,7 +52,10 @@
               </div>
               <router-link
                 class="detail-btn"
-                :to="{ name: 'detail', params: { id: article._id } }"
+                :to="{
+                  name: 'detail',
+                  params: { id: article._id, title: article.title }
+                }"
               >
                 阅读全文
                 <i class="iconfont icon-next"></i>
@@ -111,8 +120,16 @@ export default {
         this.total = res.data.total;
       }
     },
-    handleSizeChange(val) {},
-    handleCurrentChange(val) {}
+
+    handleSizeChange(val) {
+      this.query.per_page = val;
+      this.fetch();
+    },
+
+    handleCurrentChange(val) {
+      this.query.page = val;
+      this.fetch();
+    }
   },
   created() {
     this.fetch();

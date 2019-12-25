@@ -144,7 +144,10 @@ export default {
       total: 0,
       comments: [],
       comment: {
-        article_id: this.id
+        article_id: this.id,
+        username: "",
+        email: "",
+        content: ""
       }
     };
   },

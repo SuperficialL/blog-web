@@ -17,21 +17,21 @@
       </div>
     </div>
 
-    <div class="sidebar">
+    <!-- <div class="sidebar">
       <div class="sidebar-header">
         <h4 class="sidebar-title">热门文章排行</h4>
         <router-link to="/">更多</router-link>
       </div>
       <div class="sidebar-content">
         <ol class="hot-list">
-          <li class="" v-for="(article, index) in articleList" :key="index">
+          <li class="" v-for="(article, index) in articles" :key="index">
             <a href="#" :title="article.title">
               {{ article.title }}
             </a>
           </li>
         </ol>
       </div>
-    </div>
+    </div> -->
 
     <div class="sidebar">
       <div class="sidebar-header">
@@ -39,14 +39,10 @@
       </div>
       <div class="sidebar-content">
         <ul class="recent-list">
-          <li class="item" v-for="(article, index) in articleList" :key="index">
-            <a href="#" :title="article.title">
-              <div class="time">
-                <span class="day">{{ article.created_time }}</span> /
-                <span class="monty">{{ article.created_time }}</span>
-              </div>
-              <p>{{ article.title }}</p>
-            </a>
+          <li class="item" v-for="(article, index) in articles" :key="index">
+            <router-link :to="{ name: 'detail', params: { id: article._id } }">
+              {{ article.title }}
+            </router-link>
           </li>
         </ul>
       </div>
@@ -115,6 +111,7 @@
 
 <script>
 import { getTags } from "@/api/tags";
+import { getArticles } from "@/api/articles";
 import { getComments } from "@/api/comments";
 import { getStatistics } from "@/api/statistics";
 import { dateFormat } from "@/utils/filters";
@@ -123,8 +120,8 @@ export default {
   data() {
     return {
       notice: {},
-      articleList: [],
-      friendLink: [],
+      articles: [],
+      friendsLink: [],
       tags: [],
       blogInfo: {},
       comments: [],
@@ -136,6 +133,13 @@ export default {
     dateFormat
   },
   methods: {
+    async fetchArticles() {
+      const res = await getArticles();
+      if (res.code === 200) {
+        this.articles = res.data.articles;
+      }
+    },
+
     async fetchTags() {
       const res = await getTags();
       if (res.code === 200) {
@@ -158,6 +162,7 @@ export default {
     }
   },
   created() {
+    this.fetchArticles();
     this.fetchTags();
     this.fetchComments();
     this.fetchStatistics();
@@ -198,36 +203,9 @@ export default {
       display: flex;
       align-items: center;
       padding: 10px 0;
-
+      transition: all 1s;
       &:hover {
         margin-left: 5px;
-      }
-
-      .time {
-        width: 78px;
-        height: 36px;
-        margin-right: 10px;
-        line-height: 36px;
-        text-align: center;
-        color: #616161;
-        font-size: 9pt;
-        background: #f2f2f2;
-
-        .day {
-          font-size: 22px;
-          width: 30px;
-          margin-right: 2px;
-          text-align: right;
-        }
-      }
-
-      p {
-        flex: 1;
-        font-size: 14px;
-        color: #3f3f3f;
-        overflow: hidden;
-        text-overflow: ellipsis;
-        white-space: nowrap;
       }
     }
   }

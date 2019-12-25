@@ -2,7 +2,11 @@
   <div id="app">
     <Header />
     <div class="main">
-      <router-view />
+      <transition name="fade">
+        <keep-alive>
+          <router-view />
+        </keep-alive>
+      </transition>
     </div>
     <Footer />
   </div>

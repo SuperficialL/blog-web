@@ -46,9 +46,12 @@ const router = new VueRouter({
   routes
 });
 
-router.afterEach((to, _from, next) => {
-  document.title = to.meta.title;
-  // next();
+router.afterEach((to, _from) => {
+  if (to.path !== "/") {
+    document.title = `SuperficialL Blog | ${to.params.title}`;
+  } else {
+    document.title = "SuperficialL Blog";
+  }
 });
 
 export default router;

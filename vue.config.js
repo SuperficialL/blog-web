@@ -32,16 +32,12 @@ module.exports = {
   devServer: {
     proxy: {
       "/api": {
-        // target: "http://127.0.0.1:3000",
-        target: "http://www.zhangwurui.net",
+        target: "http://127.0.0.1:3000",
         changeOrigin: true
-        // ws: true
       },
       "/uploads": {
-        // target: "http://127.0.0.1:3000",
-        target: "http://www.zhangwurui.net",
+        target: "http://127.0.0.1:3000",
         changeOrigin: true
-        // ws: true
       }
     }
   },
