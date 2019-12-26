@@ -2,6 +2,10 @@
   <div class="wrap">
     <div class="content">
       <section class="article-wrapper">
+        <div class="category-title">
+          <h2>当前标签: {{ title }}</h2>
+          <span>共 0 篇</span>
+        </div>
         <article class="article" v-for="article in articles" :key="article._id">
           <router-link
             class="article-thumbnail"

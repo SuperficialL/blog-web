@@ -33,12 +33,16 @@
         <div class="comment-form">
           <div class="comment-form-content">
             <textarea
-              id=""
+              id="content"
               cols="100"
               rows="5"
-              v-model="comment.content"
+              v-model="content.value"
+              @blur="checkContent"
               placeholder="请填写正确QQ邮箱，以便于更好的与您取得联系，否则您的留言可能会被删除!"
             ></textarea>
+            <span v-show="content.validate" class="comment-tips">
+              {{ content.message }}
+            </span>
           </div>
           <div class="comment-info">
             <div class="comment-input comment-form-username">
@@ -46,25 +50,33 @@
               <input
                 type="text"
                 id="username"
-                v-model="comment.username"
+                v-model="username.value"
+                @blur="checkAuthor"
                 placeholder="昵称*"
               />
+              <span v-show="username.validate" class="comment-tips">
+                {{ username.message }}
+              </span>
             </div>
             <div class="comment-input comment-form-email">
               <label for="email"></label>
               <input
-                type="text"
+                type="email"
                 id="email"
-                v-model="comment.email"
+                v-model="email.value"
+                @blur="checkEmail"
                 placeholder="邮箱*"
               />
+              <span v-show="email.validate" class="comment-tips">
+                {{ email.message }}
+              </span>
             </div>
             <div class="comment-input comment-form-site">
               <label for="site"></label>
               <input
-                type="text"
+                type="url"
                 id="site"
-                v-model="comment.site"
+                v-model="site.value"
                 placeholder="站点"
               />
             </div>
@@ -143,11 +155,25 @@ export default {
       article: {},
       total: 0,
       comments: [],
-      comment: {
-        article_id: this.id,
-        username: "",
-        email: "",
-        content: ""
+      username: {
+        validate: false,
+        message: "",
+        value: ""
+      },
+      email: {
+        validate: false,
+        message: "",
+        value: ""
+      },
+      content: {
+        validate: false,
+        message: "",
+        value: ""
+      },
+      site: {
+        validate: false,
+        message: "",
+        value: ""
       }
     };
   },
@@ -176,15 +202,66 @@ export default {
         this.total = res.data.total;
       }
     },
+    checkContent() {
+      if (!this.content.value) {
+        this.content.validate = true;
+        this.content.message = "来点内容吧!";
+      } else {
+        this.content.validate = false;
+      }
+    },
+
+    checkAuthor() {
+      if (!this.username.value) {
+        this.username.validate = true;
+        this.username.message = "你还没署名呢!";
+      } else {
+        this.username.validate = false;
+      }
+    },
+
+    checkEmail() {
+      if (!this.email.value) {
+        this.email.validate = true;
+        this.email.message = "不写邮箱收不到回复提示哦!";
+      } else {
+        this.email.validate = false;
+      }
+    },
 
     async submit() {
-      const res = await postComment(this.comment);
-      if (res.code === 200 && !res.errorCode) {
-        this.comment.created_time = dateFormat(new Date());
-        this.comments.unshift(this.comment);
-        this.$message.success(res.message);
-      } else {
-        this.$message.error(res.message);
+      this.checkContent();
+      this.checkAuthor();
+      this.checkEmail();
+      if (
+        !this.content.validate &&
+        !this.username.validate &&
+        !this.email.validate
+      ) {
+        localStorage.setItem(
+          "authorInfo",
+          JSON.stringify({
+            username: this.username.value,
+            email: this.email.value,
+            site: this.site.value
+          })
+        );
+        let data = {
+          username: this.username.value,
+          email: this.email.value,
+          site: this.site.value,
+          content: this.content.value,
+          article_id: this.id,
+          user_agent: navigator.userAgent
+        };
+        const res = await postComment(data);
+        if (res.code === 200 && !res.errorCode) {
+          data.created_time = dateFormat(new Date());
+          this.comments.unshift(data);
+          this.$message.success(res.message);
+        } else {
+          this.$message.error(res.message);
+        }
       }
     },
 
@@ -253,34 +330,33 @@ export default {
     .comment-form {
       margin-top: 20px;
       .comment-form-content {
+        position: relative;
         box-sizing: border-box;
-        padding: 10px;
-        background-color: #f0f2f7;
-        border-radius: 6px;
         textarea {
           background-color: #f0f2f7;
           width: 100%;
           min-height: 70px;
           resize: none;
-          padding: 5px;
+          padding: 10px;
+          border-radius: 6px;
         }
       }
       .comment-info {
-        margin: 10px 0;
+        margin: 20px 0;
         display: flex;
         justify-content: space-between;
         align-items: center;
         flex-wrap: wrap;
         .comment-input {
+          position: relative;
           width: 33%;
           padding: 6px 0;
-          border-radius: 3px;
-          background-color: #f0f2f7;
           input {
             width: 100%;
             height: 100%;
             padding: 5px;
             background-color: #f0f2f7;
+            border-radius: 3px;
           }
         }
       }
@@ -292,6 +368,14 @@ export default {
           cursor: pointer;
           border-radius: 12px;
         }
+      }
+      .comment-tips {
+        position: absolute;
+        left: 0;
+        bottom: -14px;
+        width: 100%;
+        font-size: 12px;
+        color: red;
       }
     }
     .comment-list {

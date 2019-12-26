@@ -3,25 +3,18 @@
     <el-carousel :interval="5000" height="300px">
       <el-carousel-item
         type="card"
-        v-for="(item, index) in bannerList"
+        v-for="(carousel, index) in carousels"
         :key="index"
       >
-        <img :src="item.image_url" alt="" />
+        <img :src="carousel.image_url" alt="carousel.title" />
       </el-carousel-item>
     </el-carousel>
   </div>
 </template>
 
 <script>
-import { mapState } from "vuex";
-
 export default {
-  name: "Banner",
-  computed: {
-    ...mapState({
-      bannerList: state => state.base.bannerList
-    })
-  },
+  name: "Carousel",
   methods: {}
 };
 </script>

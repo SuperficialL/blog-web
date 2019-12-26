@@ -9,9 +9,9 @@
           @mousedown="showCommentControl"
         >
         </textarea>
-        <span v-show="content.validate" class="comment-tips">{{
-          content.msg
-        }}</span>
+        <span v-show="content.validate" class="comment-tips">
+          {{ content.msg }}
+        </span>
         <div class="comment-control">
           <div class="submit-wrap">
             <input

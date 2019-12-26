@@ -1,6 +1,13 @@
 <template>
   <div class="wrap">
     <div class="content">
+      <div class="breadcrumb">
+        <div class="category-title">
+          <h2>当前分类: {{ title }}</h2>
+          <span>共 0 篇</span>
+        </div>
+        <p class="description"></p>
+      </div>
       <section class="article-wrapper">
         <article class="article" v-for="article in articles" :key="article._id">
           <router-link

@@ -21,9 +21,9 @@ service.interceptors.request.use(
     }
     loadingInstance = Loading.service({
       fullscreen: true,
-      text: "Loading",
+      text: "拼命加载中",
       spinner: "el-icon-loading",
-      background: "rgba(0, 0, 0, 0.7)"
+      background: "rgba(0, 0, 0, 0.3)"
     });
     return config;
   },
@@ -59,6 +59,7 @@ service.interceptors.response.use(
     return res;
   },
   error => {
+    loadingInstance.close();
     // for debug
     Message({
       message: error.message,
