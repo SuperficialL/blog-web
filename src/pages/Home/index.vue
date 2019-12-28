@@ -56,7 +56,7 @@
                   </span>
                   <span>
                     <i class="iconfont icon-pinglun"></i>
-                    {{ article.likes }}
+                    {{ article.comments }}
                   </span>
                   <span>
                     <i class="iconfont icon-dianzan"></i>
@@ -161,8 +161,8 @@ export default {
 .list-leave-active {
   transition: all 1s;
 }
-.list-enter, .list-leave-to
-/* .list-leave-active for below version 2.1.8 */ {
+.list-enter,
+.list-leave-to {
   opacity: 0;
   transform: translateY(30px);
 }

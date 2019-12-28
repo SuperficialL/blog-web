@@ -40,7 +40,12 @@
       <div class="sidebar-content">
         <ul class="recent-list">
           <li class="item" v-for="(article, index) in articles" :key="index">
-            <router-link :to="{ name: 'detail', params: { id: article._id } }">
+            <router-link
+              :to="{
+                name: 'detail',
+                params: { id: article._id, title: article.title }
+              }"
+            >
               {{ article.title }}
             </router-link>
           </li>

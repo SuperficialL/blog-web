@@ -32,7 +32,6 @@ const routes = [
   {
     name: "detail",
     path: "/detail/:id",
-    props: true,
     component: () => import("../pages/Detail"),
     meta: {
       title: "详情"

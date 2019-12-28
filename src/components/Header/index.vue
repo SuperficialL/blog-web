@@ -93,9 +93,6 @@ export default {
 
     // 显示隐藏手机端菜单
     showMenu() {
-      // if (this.isShowSearch) {
-      //   this.isShowSearch = !this.isShowSearch;
-      // }
       this.isShow = !this.isShow;
       if (this.isShow) {
         document.getElementsByTagName("body")[0].style.overflow = "hidden";

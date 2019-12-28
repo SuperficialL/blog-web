@@ -15,7 +15,7 @@
             </span>
             <span>
               <i class="iconfont icon-pinglun"></i>
-              {{ article.likes }}
+              {{ article.comments }}
             </span>
             <span>
               <i class="iconfont icon-dianzan"></i>
@@ -152,6 +152,8 @@ export default {
   },
   data() {
     return {
+      id: this.$route.params.id,
+      title: this.$route.params.title,
       article: {},
       total: 0,
       comments: [],
@@ -177,14 +179,16 @@ export default {
       }
     };
   },
-  props: ["id", "title"],
   filters: {
     dateFormat
   },
   watch: {
-    $route() {
-      this.id = this.$route.params.id;
-      this.fetch();
+    $route(to, _from) {
+      if (to.name === "detail") {
+        this.id = to.params.id;
+        this.title = to.params.title;
+        this.fetchArticle();
+      }
     }
   },
   methods: {
@@ -202,6 +206,7 @@ export default {
         this.total = res.data.total;
       }
     },
+
     checkContent() {
       if (!this.content.value) {
         this.content.validate = true;
@@ -270,12 +275,6 @@ export default {
   created() {
     this.fetchArticle();
     this.fetchComments();
-  },
-  mounted() {
-    highlightCode();
-  },
-
-  updated() {
     highlightCode();
   }
 };
