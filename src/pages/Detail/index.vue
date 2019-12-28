@@ -28,7 +28,7 @@
 
       <section class="comment-wrap">
         <h4 class="comment-title">
-          共 {{ total }} 条评论关于 “{{ article.title }}”
+          共 {{ article.comments }} 条评论关于 “{{ article.title }}”
         </h4>
         <div class="comment-form">
           <div class="comment-form-content">
