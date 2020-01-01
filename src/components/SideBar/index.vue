@@ -62,9 +62,11 @@
           <li class="item" v-for="(comment, index) in comments" :key="index">
             <a href="#" :title="comment.title">
               <img
-                :src="comment.email"
+                :src="comment.avatar"
                 :alt="comment.username"
                 class="avatar"
+                width="50"
+                height="50"
               />
             </a>
             <div class="con">

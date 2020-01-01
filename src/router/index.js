@@ -1,5 +1,10 @@
 import Vue from "vue";
 import VueRouter from "vue-router";
+import NProgress from 'nprogress';
+// progress bar
+import 'nprogress/nprogress.css';
+import getPageTitle from '@/utils/getPageTitle';
+
 Vue.use(VueRouter);
 
 const routes = [
@@ -8,7 +13,8 @@ const routes = [
     path: "/",
     component: () => import("../pages/Home"),
     meta: {
-      title: "首页"
+      title: "首页",
+      keepAlive: true
     }
   },
   {
@@ -17,7 +23,8 @@ const routes = [
     props: true,
     component: () => import("../pages/Category"),
     meta: {
-      title: "分类列表"
+      title: "分类列表",
+      keepAlive: true
     }
   },
   {
@@ -26,7 +33,8 @@ const routes = [
     props: true,
     component: () => import("../pages/Tag"),
     meta: {
-      title: "标签"
+      title: "标签",
+      keepAlive: true
     }
   },
   {
@@ -45,12 +53,14 @@ const router = new VueRouter({
   routes
 });
 
+router.beforeEach(async (to, from, next) => {
+  NProgress.start();
+  getPageTitle();
+  next();
+});
+
 router.afterEach((to, _from) => {
-  if (to.path !== "/") {
-    document.title = `SuperficialL Blog | ${to.params.title}`;
-  } else {
-    document.title = "SuperficialL Blog";
-  }
+  NProgress.done();
 });
 
 export default router;

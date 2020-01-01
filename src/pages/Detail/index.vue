@@ -5,7 +5,7 @@
         <article class="article">
           <h3 class="title">{{ article.title }}</h3>
           <div class="article-meta">
-            <span>
+            <span v-if="article.created_time">
               <i class="iconfont icon-msnui-time-detail"></i>
               {{ article.created_time | dateFormat }}
             </span>
@@ -90,8 +90,8 @@
             />
           </div>
         </div>
-        <div class="comment-list">
-          <div
+        <ul class="comment-list">
+          <li
             class="comment-item"
             v-for="comment in comments"
             :key="comment._id"
@@ -104,9 +104,7 @@
                 <a :href="comment.site" class="username">
                   {{ comment.username }}
                 </a>
-                <!-- <span><i></i>系统</span>
-                <span><i></i>浏览器</span>
-                <span><i></i>地区</span> -->
+                <ua :ua="comment.ua" />
               </div>
               <div class="comment-content">
                 {{ comment.content }}
@@ -120,8 +118,8 @@
                 </span>
               </div>
             </div>
-          </div>
-        </div>
+          </li>
+        </ul>
       </section>
     </div>
 
@@ -130,6 +128,7 @@
 </template>
 
 <script>
+import ua from "./components/ua";
 import Sidebar from "@/components/SideBar";
 import { getArticle } from "@/api/articles";
 import { getComments, postComment } from "@/api/comments";
@@ -148,6 +147,7 @@ const highlightCode = () => {
 export default {
   name: "Detail",
   components: {
+    ua,
     Sidebar
   },
   data() {
@@ -179,9 +179,9 @@ export default {
       }
     };
   },
-  filters: {
-    dateFormat
-  },
+  // filters: {
+  //   dateFormat
+  // },
   watch: {
     $route(to, _from) {
       if (to.name === "detail") {

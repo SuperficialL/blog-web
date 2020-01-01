@@ -1,5 +1,6 @@
 const path = require("path");
 const CompressionPlugin = require("compression-webpack-plugin");
+// const UglifyJsPlugin = require('uglifyjs-webpack-plugin');
 
 function resolve(dir) {
   return path.join(__dirname, "./", dir);
@@ -33,16 +34,19 @@ module.exports = {
     proxy: {
       "/api": {
         target: "http://127.0.0.1:3000",
+        // target: "http://www.zhangwurui.net",
         changeOrigin: true
       },
       "/uploads": {
-        target: "http://127.0.0.1:3000",
+        // target: "http://127.0.0.1:3000",
+        target: "http://www.zhangwurui.net",
         changeOrigin: true
       }
     }
   },
 
   configureWebpack: {
+    devtool: '#souce-map',
     resolve: {
       alias: {
         "@": resolve("src")
@@ -51,6 +55,7 @@ module.exports = {
   },
 
   chainWebpack: config => {
+
     /* 添加分析工具 */
     if (process.env.NODE_ENV === "production") {
       config
@@ -61,6 +66,22 @@ module.exports = {
       // 删除预加载
       config.plugins.delete("preload");
       config.plugins.delete("prefetch");
+
+      // config.plugins.push(
+      //   new UglifyJsPlugin({
+      //     uglifyOptions: {
+      //       compress: {
+      //         drop_debugger: true,
+      //         drop_console: true,
+      //         // 生产环境自动删除console
+      //       },
+      //       warnings: false,
+      //     },
+      //     sourceMap: false,
+      //     parallel: true,
+      //     // 使用多进程并行运行来提高构建速度。默认并发运行数：os.cpus().length - 1。
+      //   })
+      // );
 
       return {
         plugins: [

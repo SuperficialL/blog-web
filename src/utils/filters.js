@@ -1,7 +1,7 @@
 /*
  * @Author: Superficial
  * @Date: 2019-11-15 22:49:46
- * @LastEditTime : 2019-12-22 16:20:43
+ * @LastEditTime : 2020-01-01 13:28:19
  * @Description: 工具函数
  */
 /**
@@ -19,7 +19,6 @@ let dateFormat = time => {
     mm: date.getMinutes(),
     ss: date.getSeconds()
   };
-
   for (let key in Time) {
     Time[key] = Time[key] < 10 ? `0${Time[key]}` : `${Time[key]}`;
   }

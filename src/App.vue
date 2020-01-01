@@ -2,11 +2,7 @@
   <div id="app">
     <Header />
     <div class="main">
-      <transition name="fade">
-        <keep-alive>
-          <router-view />
-        </keep-alive>
-      </transition>
+      <router-view />
     </div>
     <Footer />
   </div>
@@ -22,3 +18,14 @@ export default {
   }
 };
 </script>
+
+<style lang="scss">
+#app {
+  height: 100vh;
+  .main {
+    // 100%  60 * 2 header + footer 40 main 外边距 20 * 2
+    // min-height: calc(100% - 60px * 2 - 20px * 2);
+    min-height: 100%;
+  }
+}
+</style>
