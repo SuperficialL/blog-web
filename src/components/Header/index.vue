@@ -63,27 +63,31 @@
 </template>
 
 <script>
-import { getMenu } from "@/api/nav";
-import { arr2tree } from "@/utils/tools";
+// import { getMenu } from "@/api/nav";
+// import { arr2tree } from "@/utils/tools";
+import { mapGetters, mapActions } from "vuex";
+
 export default {
   name: "Header",
   data() {
     return {
       keywords: "",
       isShow: false,
-      isShowSearch: false,
-      navigation: []
+      isShowSearch: false
     };
   },
+  computed: {
+    ...mapGetters(["navigation"])
+  },
   methods: {
-    // 获取数据
-    async fetch() {
-      const res = await getMenu();
-      if (res.code === 200) {
-        let navigation = res.data.categories;
-        this.navigation = arr2tree(navigation);
-      }
-    },
+    // // 获取数据
+    // async fetch() {
+    //   const res = await getMenu();
+    //   if (res.code === 200) {
+    //     let navigation = res.data.categories;
+    //     this.navigation = arr2tree(navigation);
+    //   }
+    // },
 
     // 查询
     search() {
@@ -110,7 +114,7 @@ export default {
     }
   },
   created() {
-    this.fetch();
+    // this.fetch();
   }
 };
 </script>

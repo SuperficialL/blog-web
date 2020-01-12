@@ -1,4 +1,4 @@
-import { getArticles } from "@/api";
+import { getArticles } from "@/api/articles";
 
 const state = {
   articleList: [],

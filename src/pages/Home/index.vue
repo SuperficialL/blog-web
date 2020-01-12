@@ -99,6 +99,7 @@ import Sidebar from "@/components/SideBar";
 import { getArticles } from "@/api/articles";
 import { getCarousels } from "@/api/carousels";
 import { dateFormat } from "@/utils/filters";
+
 export default {
   name: "Home",
   components: {

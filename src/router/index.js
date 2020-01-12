@@ -1,9 +1,14 @@
 import Vue from "vue";
 import VueRouter from "vue-router";
-import NProgress from 'nprogress';
+// import NProgress from 'nprogress';
 // progress bar
-import 'nprogress/nprogress.css';
-import getPageTitle from '@/utils/getPageTitle';
+// import 'nprogress/nprogress.css';
+// import getPageTitle from '@/utils/getPageTitle';
+
+import Home from "@/pages/Home";
+import Category from "@/pages/Category";
+import Tag from "@/pages/Tag";
+import Detail from "@/pages/Detail";
 
 Vue.use(VueRouter);
 
@@ -11,7 +16,8 @@ const routes = [
   {
     name: "home",
     path: "/",
-    component: () => import("../pages/Home"),
+    // component: () => import("../pages/Home"),
+    component: Home,
     meta: {
       title: "首页",
       keepAlive: true
@@ -21,7 +27,8 @@ const routes = [
     name: "category",
     path: "/category/:id",
     props: true,
-    component: () => import("../pages/Category"),
+    component: Category,
+    // component: () => import("../pages/Category"),
     meta: {
       title: "分类列表",
       keepAlive: true
@@ -31,16 +38,18 @@ const routes = [
     name: "tag",
     path: "/tag/:id",
     props: true,
-    component: () => import("../pages/Tag"),
+    component: Tag,
+    // component: () => import("../pages/Tag"),
     meta: {
-      title: "标签",
+      title: "标签列表",
       keepAlive: true
     }
   },
   {
     name: "detail",
     path: "/detail/:id",
-    component: () => import("../pages/Detail"),
+    component: Detail,
+    // component: () => import("../pages/Detail"),
     meta: {
       title: "详情"
     }
@@ -53,14 +62,14 @@ const router = new VueRouter({
   routes
 });
 
-router.beforeEach(async (to, from, next) => {
-  NProgress.start();
-  getPageTitle();
-  next();
-});
+// router.beforeEach(async (to, from, next) => {
+//   NProgress.start();
+//   getPageTitle();
+//   next();
+// });
 
-router.afterEach((to, _from) => {
-  NProgress.done();
-});
+// router.afterEach((to, _from) => {
+//   NProgress.done();
+// });
 
 export default router;

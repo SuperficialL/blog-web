@@ -1,18 +1,16 @@
-import {
-  getMenu,
-  getSiteInfo,
-  getFriendLink,
-  getIndexBanner,
-  getTags,
-  getComments
-} from "@/api";
+import { getMenu } from "@/api/nav";
+import { getTags } from "@/api/tags";
+import { getComments } from "@/api/comments";
+import { getFriendsLink } from "@/api/friendslink";
+import { getSiteInfo } from "@/api/index";
+import { getCarousels } from "@/api/carousels";
 
 const state = {
   isLoading: false,
   navigation: [],
-  bannerList: [],
+  carousels: [],
   blogInfo: {},
-  friendLink: [],
+  friendsLink: [],
   tags: [],
   comments: []
 };
@@ -23,33 +21,41 @@ const getters = {
 };
 
 const mutations = {
+  // 更新菜单
   UPDATE_MENU(state, data) {
+    console.log(data, 'data');
     state.navigation = data.results;
   },
+  // 更新站点信息
   UPDATE_BlogInfo(state, blogInfo) {
     if (Array.isArray(blogInfo)) {
       state.blogInfo = blogInfo[0];
     }
   },
+  // 更新轮播图
   UPDATE_BANNER(state, data) {
-    state.bannerList = data;
+    state.carousels = data;
   },
-  UPDATE_lINKS(state, friendLink) {
-    state.friendLink = friendLink.results;
+  // 更新友链
+  UPDATE_lINKS(state, friendsLink) {
+    state.friendsLink = friendsLink.results;
   },
+  // 更新标签
   UPDATE_TAGS(state, tags) {
     state.tags = tags.results;
   },
+  // 更新评论
   UPDATE_COMMENTS(state, comments) {
     state.comments = comments.results;
   },
+  // 更新状态
   UPDATE_LOADING(state, response) {
     state.isLoading = response;
   }
 };
 
 const actions = {
-  // 获取导航栏
+  // 获取导航数据
   GET_MENU({ commit, state }, params) {
     return new Promise((resolve, reject) => {
       getMenu(params)
@@ -80,7 +86,7 @@ const actions = {
   // 获取友情链接
   GET_FriendLink({ commit, state }, params) {
     return new Promise((resolve, reject) => {
-      getFriendLink(params)
+      getFriendsLink(params)
         .then(data => {
           commit("UPDATE_lINKS", data);
           resolve(data);
@@ -94,7 +100,7 @@ const actions = {
   // 获取轮播
   GET_BANNER({ commit, state }, params) {
     return new Promise((resolve, reject) => {
-      getIndexBanner(params)
+      getCarousels(params)
         .then(data => {
           commit("UPDATE_BANNER", data);
           resolve(data);
