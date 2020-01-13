@@ -2,7 +2,7 @@
   <footer class="footer">
     <div class="footer-top-inner">
       <ul class="links-wrap">
-        <li class="link" v-for="(link, i) in friendsLink" :key="i">
+        <li class="link" v-for="(link, index) in friendsLink" :key="index">
           <a :href="link.url" target="_blank">{{ link.name }}</a>
         </li>
       </ul>
@@ -20,13 +20,16 @@
 </template>
 
 <script>
+import { mapGetters } from "vuex";
 export default {
   name: "Footer",
   data() {
     return {
-      toTopShow: false,
-      friendsLink: []
+      toTopShow: false
     };
+  },
+  computed: {
+    ...mapGetters(["friendsLink"])
   },
   methods: {
     handleScroll() {

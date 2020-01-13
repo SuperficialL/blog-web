@@ -65,7 +65,7 @@
 <script>
 // import { getMenu } from "@/api/nav";
 // import { arr2tree } from "@/utils/tools";
-import { mapGetters, mapActions } from "vuex";
+import { mapGetters } from "vuex";
 
 export default {
   name: "Header",
@@ -80,15 +80,6 @@ export default {
     ...mapGetters(["navigation"])
   },
   methods: {
-    // // 获取数据
-    // async fetch() {
-    //   const res = await getMenu();
-    //   if (res.code === 200) {
-    //     let navigation = res.data.categories;
-    //     this.navigation = arr2tree(navigation);
-    //   }
-    // },
-
     // 查询
     search() {
       this.$message.success("查询功能博主正在开发中!");
@@ -112,9 +103,6 @@ export default {
       }
       this.isShowSearch = !this.isShowSearch;
     }
-  },
-  created() {
-    // this.fetch();
   }
 };
 </script>

@@ -4,149 +4,163 @@ import { getComments } from "@/api/comments";
 import { getFriendsLink } from "@/api/friendslink";
 import { getSiteInfo } from "@/api/index";
 import { getCarousels } from "@/api/carousels";
+import { arr2tree } from "@/utils/tools";
 
-const state = {
-  isLoading: false,
-  navigation: [],
-  carousels: [],
-  blogInfo: {},
-  friendsLink: [],
-  tags: [],
-  comments: []
-};
-
-const getters = {
-  // 请求数据时加载状态
-  isLoading: state => state.isLoading
-};
-
-const mutations = {
-  // 更新菜单
-  UPDATE_MENU(state, data) {
-    console.log(data, 'data');
-    state.navigation = data.results;
+const siteInfo = {
+  state: {
+    isLoading: false,
+    navigation: [],
+    carousels: [],
+    blogInfo: {},
+    friendsLink: [],
+    tags: [],
+    comments: []
   },
-  // 更新站点信息
-  UPDATE_BlogInfo(state, blogInfo) {
-    if (Array.isArray(blogInfo)) {
-      state.blogInfo = blogInfo[0];
+
+  mutations: {
+    // 更新菜单
+    UPDATE_MENU(state, arr) {
+      let navigation = arr2tree(arr);
+      state.navigation = navigation;
+    },
+    // 更新站点信息
+    UPDATE_BlogInfo(state, blogInfo) {
+      state.blogInfo = blogInfo;
+    },
+    // 更新轮播图
+    UPDATE_BANNER(state, data) {
+      state.carousels = data;
+    },
+    // 更新友链
+    UPDATE_lINKS(state, friendsLink) {
+      state.friendsLink = friendsLink;
+    },
+    // 更新标签
+    UPDATE_TAGS(state, tags) {
+      state.tags = tags;
+    },
+    // 更新评论
+    UPDATE_COMMENTS(state, comments) {
+      state.comments = comments;
     }
   },
-  // 更新轮播图
-  UPDATE_BANNER(state, data) {
-    state.carousels = data;
-  },
-  // 更新友链
-  UPDATE_lINKS(state, friendsLink) {
-    state.friendsLink = friendsLink.results;
-  },
-  // 更新标签
-  UPDATE_TAGS(state, tags) {
-    state.tags = tags.results;
-  },
-  // 更新评论
-  UPDATE_COMMENTS(state, comments) {
-    state.comments = comments.results;
-  },
-  // 更新状态
-  UPDATE_LOADING(state, response) {
-    state.isLoading = response;
+
+  actions: {
+    // 获取导航数据
+    GET_MENU({ commit }, params) {
+      return new Promise((resolve, reject) => {
+        getMenu(params)
+          .then(res => {
+            if (res.code === 200) {
+              let categories = res.data.categories;
+              commit("UPDATE_MENU", categories);
+              resolve(categories);
+            } else {
+              this.$message.error(res.message);
+            }
+          })
+          .catch(error => {
+            reject(error);
+          });
+      });
+    },
+
+    // 获取站点信息
+    GET_BLOGINFO({ commit }, params) {
+      return new Promise((resolve, reject) => {
+        getSiteInfo(params)
+          .then(res => {
+            if (res.code === 200) {
+              let siteInfo = Object.assign({}, res.data);
+              commit("UPDATE_BlogInfo", siteInfo);
+              resolve(siteInfo);
+            } else {
+              this.$message.error(res.message);
+            }
+          })
+          .catch(error => {
+            reject(error);
+          });
+      });
+    },
+
+    // 获取友情链接
+    GET_FriendLink({ commit }, params) {
+      return new Promise((resolve, reject) => {
+        getFriendsLink(params)
+          .then(res => {
+            if (res.code === 200) {
+              let friendsLink = res.data.friendsLink;
+              commit("UPDATE_lINKS", friendsLink);
+              resolve(friendsLink);
+            } else {
+              this.$message.error(res.message);
+            }
+          })
+          .catch(error => {
+            reject(error);
+          });
+      });
+    },
+
+    // 获取轮播
+    GET_Carousels({ commit }, params) {
+      return new Promise((resolve, reject) => {
+        getCarousels(params)
+          .then(res => {
+            if (res.code === 200) {
+              let carousels = res.data.carousels;
+              commit("UPDATE_BANNER", carousels);
+              resolve(carousels);
+            } else {
+              this.$message.error(res.message);
+            }
+          })
+          .catch(error => {
+            reject(error);
+          });
+      });
+    },
+
+    // 获取标签集合
+    GET_TAGS({ commit }, params) {
+      return new Promise((resolve, reject) => {
+        getTags(params)
+          .then(res => {
+            if (res.code === 200) {
+              let tags = res.data.tags;
+              commit("UPDATE_TAGS", tags);
+              resolve(tags);
+            } else {
+              this.$message.error(res.message);
+            }
+          })
+          .catch(error => {
+            reject(error);
+          });
+      });
+    },
+
+    // 获取首页评论
+    GET_COMMENTS({ commit }, params) {
+      return new Promise((resolve, reject) => {
+        getComments(params)
+          .then(res => {
+            if (res.code === 200) {
+              let comments = res.data.comments;
+              commit("UPDATE_COMMENTS", comments);
+              resolve(comments);
+            } else {
+              this.$message.error(res.message);
+            }
+          })
+          .catch(error => {
+            reject(error);
+          });
+      });
+    }
   }
 };
 
-const actions = {
-  // 获取导航数据
-  GET_MENU({ commit, state }, params) {
-    return new Promise((resolve, reject) => {
-      getMenu(params)
-        .then(data => {
-          commit("UPDATE_MENU", data);
-          resolve(data);
-        })
-        .catch(error => {
-          reject(error);
-        });
-    });
-  },
 
-  // 获取站点信息
-  GET_BLOGINFO({ commit, state }, params) {
-    return new Promise((resolve, reject) => {
-      getSiteInfo(params)
-        .then(data => {
-          commit("UPDATE_BlogInfo", data);
-          resolve(data);
-        })
-        .catch(error => {
-          reject(error);
-        });
-    });
-  },
-
-  // 获取友情链接
-  GET_FriendLink({ commit, state }, params) {
-    return new Promise((resolve, reject) => {
-      getFriendsLink(params)
-        .then(data => {
-          commit("UPDATE_lINKS", data);
-          resolve(data);
-        })
-        .catch(error => {
-          reject(error);
-        });
-    });
-  },
-
-  // 获取轮播
-  GET_BANNER({ commit, state }, params) {
-    return new Promise((resolve, reject) => {
-      getCarousels(params)
-        .then(data => {
-          commit("UPDATE_BANNER", data);
-          resolve(data);
-        })
-        .catch(error => {
-          reject(error);
-        });
-    });
-  },
-
-  // 获取标签集合
-  GET_TAGS({ commit, state }, params) {
-    return new Promise((resolve, reject) => {
-      getTags(params)
-        .then(data => {
-          commit("UPDATE_TAGS", data);
-          resolve(data);
-        })
-        .catch(error => {
-          reject(error);
-        });
-    });
-  },
-
-  // 获取首页评论
-  GET_COMMENTS({ commit, state }, params) {
-    return new Promise((resolve, reject) => {
-      getComments(params)
-        .then(data => {
-          commit("UPDATE_COMMENTS", data);
-          resolve(data);
-        })
-        .catch(error => {
-          reject(error);
-        });
-    });
-  },
-
-  FETCH_LOADING({ commit }, params) {
-    commit("UPDATE_LOADING", params);
-  }
-};
-
-export default {
-  state,
-  mutations,
-  actions,
-  getters
-};
+export default siteInfo;

@@ -105,10 +105,10 @@
       </div>
       <div class="sidebar-content">
         <ul class="site">
-          <li>分类:{{ statistics.category_total }}个</li>
-          <li>标签:{{ statistics.tag_total }}个</li>
-          <li>文章:{{ statistics.article_total }}篇</li>
-          <li>评论:{{ statistics.comment_total }}条</li>
+          <li>分类:{{ blogInfo.category_total }}个</li>
+          <li>标签:{{ blogInfo.tag_total }}个</li>
+          <li>文章:{{ blogInfo.article_total }}篇</li>
+          <li>评论:{{ blogInfo.comment_total }}条</li>
           <!-- <li>访问量:{{ statistics.visit_nums }}条</li> -->
         </ul>
       </div>
@@ -117,62 +117,21 @@
 </template>
 
 <script>
-import { getTags } from "@/api/tags";
-import { getArticles } from "@/api/articles";
-import { getComments } from "@/api/comments";
-import { getStatistics } from "@/api/statistics";
 import { dateFormat } from "@/utils/filters";
+import { mapGetters } from "vuex";
 export default {
   name: "Sidebar",
   data() {
     return {
       notice: {},
-      articles: [],
-      friendsLink: [],
-      tags: [],
-      blogInfo: {},
-      comments: [],
-      total: {},
-      statistics: {}
+      articles: []
     };
+  },
+  computed: {
+    ...mapGetters(["tags", "comments", "blogInfo"])
   },
   filters: {
     dateFormat
-  },
-  methods: {
-    async fetchArticles() {
-      const res = await getArticles();
-      if (res.code === 200) {
-        this.articles = res.data.articles;
-      }
-    },
-
-    async fetchTags() {
-      const res = await getTags();
-      if (res.code === 200) {
-        this.tags = res.data.tags;
-      }
-    },
-
-    async fetchComments() {
-      const res = await getComments();
-      if (res.code === 200) {
-        this.comments = res.data.comments;
-      }
-    },
-
-    async fetchStatistics() {
-      const res = await getStatistics();
-      if (res.code === 200) {
-        this.statistics = res.data;
-      }
-    }
-  },
-  created() {
-    this.fetchArticles();
-    this.fetchTags();
-    this.fetchComments();
-    this.fetchStatistics();
   }
 };
 </script>
@@ -197,7 +156,7 @@ export default {
   }
 }
 
-// /* 侧边栏最近文章 */
+/* 侧边栏最近文章 */
 .recent-list {
   .item {
     border-bottom: 1px dotted #ccc;
