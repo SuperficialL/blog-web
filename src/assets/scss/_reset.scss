@@ -1,7 +1,7 @@
 /*
  * @Author: Superficial
  * @Date: 2019-12-17 14:30:56
- * @LastEditTime : 2019-12-22 18:23:18
+ * @LastEditTime : 2020-02-01 19:22:52
  * @Description: 浏览器样式初始化
  */
 
@@ -50,7 +50,8 @@ h6 {
 p,
 body,
 ul,
-ol {
+ol,
+blockquote {
   margin: 0;
   padding: 0;
 }
@@ -82,6 +83,13 @@ img {
 
 .iconfont {
   vertical-align: middle;
+}
+
+blockquote {
+  margin-top: 10px;
+  padding: 10px;
+  background: #f8f8f8;
+  border-radius: 5px;
 }
 
 /*滚动条整体样式*/

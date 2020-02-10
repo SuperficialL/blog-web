@@ -11,7 +11,6 @@
 <script>
 import Header from "@/components/Header";
 import Footer from "@/components/Footer";
-// import { mapActions } from "vuex";
 export default {
   name: "App",
   components: {
@@ -30,13 +29,6 @@ export default {
   },
   created() {
     this.getSiteInfo();
-    // mapActions(["GET_MENU"]);
   }
 };
 </script>
-
-<style lang="scss">
-#app {
-  height: 100vh;
-}
-</style>

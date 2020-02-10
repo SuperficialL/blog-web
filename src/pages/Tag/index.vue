@@ -3,7 +3,7 @@
     <div class="content">
       <section class="article-wrapper">
         <div class="category-title">
-          <h2>当前标签: {{ title }}</h2>
+          <h2>当前标签: {{ $route.params.title }}</h2>
           <span>共 0 篇</span>
         </div>
         <article class="article" v-for="article in articles" :key="article._id">
@@ -96,7 +96,7 @@ export default {
     return {
       articles: [],
       total: 0,
-      article_id: this.$route.params.id,
+      tag_id: this.$route.params.id,
       query: {
         page: 1,
         per_page: 10
@@ -109,14 +109,14 @@ export default {
   },
   watch: {
     $route() {
-      this.article_id = this.$route.params.id;
+      this.tag_id = this.$route.params.id;
       this.fetch();
     }
   },
   methods: {
     async fetch() {
       let params = {
-        article_id: this.article_id
+        tag_id: this.tag_id
       };
       const res = await getArticles(params);
       if (res.code === 200) {

@@ -44,7 +44,7 @@ export default {
       cancelAnimationFrame(timer);
       timer = requestAnimationFrame(function fn() {
         if (_that.scrollTop > 0) {
-          _that.scrollTop -= 50;
+          _that.scrollTop -= 100;
           // 然后修改这里实现动画滚动效果
           document.body.scrollTop = document.documentElement.scrollTop =
             _that.scrollTop;

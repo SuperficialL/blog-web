@@ -1,61 +1,72 @@
 <template>
   <header class="header">
-    <div class="header-container wrap">
-      <div class="logo">
-        <router-link to="/" tag="h2">SuperficialL Blog</router-link>
-      </div>
-      <div class="nav-container" :class="{ show: isShow }">
-        <ul class="nav-menu">
-          <li class="nav-item">
-            <router-link to="/" exact>
-              首页
-            </router-link>
-          </li>
-          <li class="nav-item" v-for="(root, index) in navigation" :key="index">
-            <router-link
-              :to="{
-                name: 'category',
-                params: { title: root.name, id: root._id }
-              }"
+    <div class="header-container" :class="{ fixed: isFixed }">
+      <div class="wrap">
+        <div class="logo">
+          <router-link to="/" tag="h2">SuperficialL Blog</router-link>
+        </div>
+        <div class="nav-container" :class="{ show: isShow }">
+          <ul class="nav-menu">
+            <li class="nav-item">
+              <router-link to="/" exact>
+                <i class="el-icon-s-home"></i>
+                首页
+              </router-link>
+            </li>
+            <li
+              class="nav-item"
+              v-for="(root, index) in navigation"
+              :key="index"
             >
-              {{ root.name }}
-              <i class="iconfont icon-down" v-if="root.children.length"></i>
-            </router-link>
-            <ul class="sub-menu">
-              <li
-                class="sub-item"
-                v-for="child in root.children"
-                :key="child._id"
+              <router-link
+                :to="{
+                  name: 'category',
+                  params: { id: root._id },
+                  query: { type: root.name }
+                }"
               >
-                <router-link
-                  :to="{
-                    name: 'category',
-                    params: { title: child.name, id: child._id }
-                  }"
-                  exact
+                <i class="iconfont" :class="root.icon"></i>
+                {{ root.name }}
+                <i class="iconfont icon-down" v-if="root.children.length"></i>
+              </router-link>
+              <ul class="sub-menu">
+                <li
+                  class="sub-item"
+                  v-for="child in root.children"
+                  :key="child._id"
                 >
-                  {{ child.name }}
-                </router-link>
-              </li>
-            </ul>
-          </li>
-        </ul>
-      </div>
-      <div class="search-box">
-        <i class="iconfont icon-menu" @click="showMenu"></i>
-        <div class="search-wrapper">
-          <el-input
-            size="small"
-            v-model="keywords"
-            placeholder="请输入关键字"
-            @keyup.enter.native="search"
-          ></el-input>
-          <el-button
-            size="small"
-            slot="append"
-            icon="el-icon-search"
-            @click="search"
-          ></el-button>
+                  <router-link
+                    :to="{
+                      name: 'category',
+                      params: { id: child._id },
+                      query: { type: child.name }
+                    }"
+                    exact
+                  >
+                    <i class="iconfont" :class="child.icon"></i>
+                    {{ child.name }}
+                  </router-link>
+                </li>
+              </ul>
+            </li>
+          </ul>
+        </div>
+        <div class="search-box">
+          <i class="iconfont icon-menu" @click="showMenu"></i>
+          <div class="search-wrapper">
+            <el-input
+              size="small"
+              v-model="keywords"
+              placeholder="请输入关键字"
+              @keyup.enter.native="search"
+            >
+              <i
+                slot="suffix"
+                class="el-input__icon el-icon-search"
+                @click="search"
+              ></i>
+            </el-input>
+          </div>
         </div>
       </div>
     </div>
@@ -63,14 +74,13 @@
 </template>
 
 <script>
-// import { getMenu } from "@/api/nav";
-// import { arr2tree } from "@/utils/tools";
 import { mapGetters } from "vuex";
 
 export default {
   name: "Header",
   data() {
     return {
+      isFixed: true,
       keywords: "",
       isShow: false,
       isShowSearch: false
@@ -103,6 +113,24 @@ export default {
       }
       this.isShowSearch = !this.isShowSearch;
     }
+  },
+  created() {
+    let oldTop = 0;
+    window.onscroll = () => {
+      let top = document.scrollingElement.scrollTop;
+      // 触发滚动条，记录数值
+      // 旧数据大于当前位置，表示滚动条top向上滚动
+      if (oldTop > top) {
+        this.isFixed = true;
+        // console.log("↑");
+      } else {
+        // 相反...
+        this.isFixed = false;
+        // console.log("↓");
+      }
+      oldTop = top;
+      // 更新旧的位置
+    };
   }
 };
 </script>
@@ -112,17 +140,27 @@ export default {
   position: relative;
   width: 100%;
   height: 60px;
-  z-index: 2019;
-  background-color: #1c2327;
+  z-index: 10;
   .header-container {
+    position: fixed;
+    top: 0;
+    width: 100%;
+    height: 60px;
+    background-color: #fff;
+    transition: 0.4s;
+    transform: translateY(-100%);
+    &.fixed {
+      transform: translateY(0);
+    }
+  }
+  .wrap {
     display: flex;
     justify-content: space-between;
     align-items: center;
     height: inherit;
+
     .logo {
       cursor: pointer;
-      // h2 {
-      // }
     }
     .nav-container {
       flex: 1;
@@ -143,7 +181,7 @@ export default {
             height: inherit;
             line-height: 60px;
             &:hover {
-              color: #337ab7;
+              color: #0088f5;
             }
           }
           & > .sub-menu {
@@ -152,7 +190,8 @@ export default {
             z-index: 9;
             min-width: 100px;
             overflow: hidden;
-            background: #1c2327;
+            background: $bg-color;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.2);
             transition: all 0.3s;
             transform-origin: 0 0;
             transform: rotateX(-90deg);
@@ -160,8 +199,11 @@ export default {
               display: block;
               padding: 10px 15px;
             }
-            .sub-item:hover {
-              color: #337ab7;
+            .sub-item {
+              text-align: left;
+            }
+            .sub-item:hover a {
+              color: #0088f5;
             }
           }
           &:hover > ul {

@@ -91,7 +91,9 @@
       <div class="sidebar-content">
         <ul class="sidebar-tags">
           <li class="tag" v-for="tag in tags" :key="tag._id">
-            <router-link :to="{ name: 'tag', params: { id: tag._id } }">
+            <router-link
+              :to="{ name: 'tag', params: { id: tag._id, title: tag.title } }"
+            >
               {{ tag.title }}
             </router-link>
           </li>
@@ -199,7 +201,7 @@ export default {
     .avatar {
       border-radius: 50%;
       margin-right: 10px;
-      transition: 1s;
+      transition: 0.6s;
     }
 
     .con {

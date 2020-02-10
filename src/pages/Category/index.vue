@@ -3,10 +3,10 @@
     <div class="content">
       <div class="breadcrumb">
         <div class="category-title">
-          <h2>当前分类: {{ title }}</h2>
-          <span>共 0 篇</span>
+          <h4>当前分类: {{ type }}</h4>
+          <span>共 {{ total }} 篇</span>
         </div>
-        <p class="description"></p>
+        <!-- <p class="description"></p> -->
       </div>
       <section class="article-wrapper">
         <article class="article" v-for="article in articles" :key="article._id">
@@ -100,19 +100,20 @@ export default {
       articles: [],
       total: 0,
       category_id: this.$route.params.id,
+      type: this.$route.query.type,
       query: {
         page: 1,
         per_page: 10
       }
     };
   },
-  props: ["title"],
   filters: {
     dateFormat
   },
   watch: {
     $route() {
       this.category_id = this.$route.params.id;
+      this.type = this.$route.query.type;
       this.fetch();
     }
   },
@@ -149,5 +150,14 @@ export default {
   display: flex;
   justify-content: space-between;
   margin: 20px auto;
+}
+.category-title {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  background-color: #fff;
+  margin-bottom: 20px;
+  padding: 10px;
+  border-radius: 6px;
 }
 </style>

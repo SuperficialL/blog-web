@@ -1,12 +1,12 @@
 /*
  * @Author: Superficial
  * @Date: 2019-12-17 19:07:55
- * @LastEditTime : 2019-12-18 10:38:37
+ * @LastEditTime : 2020-02-01 19:31:56
  * @Description: 主体变量
  */
 
 // 一级导航栏背景色
-$background-color: #e74c3c;
+$bg-color: #fff;
 $link-color: #00c1de;
 
 // 搜索
@@ -21,29 +21,30 @@ $sub-link-hover: rgb(87, 102, 99);
 // 文字尺寸(font-size)
 $base-font-size: 1rem;
 
-$font-sizes: (xs: 0.7692,
+$font-sizes: (
+  xs: 0.7692,
   //10px
-  sm: 0.9231,
+    sm: 0.9231,
   //12px
-  md: 1,
+    md: 1,
   //13px
-  lg: 1.0769,
+    lg: 1.0769,
   //14px
-  xl: 1.2308,
+    xl: 1.2308,
   //16px
 );
 
 // colors
-$colors: ("primary": #db9e3f,
+$colors: (
+  "primary": #db9e3f,
   "white": #fff,
   "light": #f9f9f9,
   "dark": #222,
   "grey": #999,
-  "block": #000);
+  "block": #000
+);
 
-@each $colorKey,
-$color in $colors {
-
+@each $colorKey, $color in $colors {
   // 文字颜色(color)
   .text-#{$colorKey} {
     color: $color;
@@ -62,8 +63,7 @@ $color in $colors {
   }
 }
 
-@each $sizeKey,
-$size in $font-sizes {
+@each $sizeKey, $size in $font-sizes {
   .fs-#{$sizeKey} {
     font-size: $size * $base-font-size;
   }

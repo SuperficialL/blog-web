@@ -22,8 +22,17 @@
               {{ article.likes }}
             </span>
           </div>
-          <div class="article-content" v-html="article.renderContent"></div>
+          <div class="article-detail" v-html="article.renderContent"></div>
         </article>
+      </section>
+
+      <section class="actions-wrap">
+        <ul class="actions">
+          <li @click="liked" :class="{ liked: opinios }">
+            <i class="iconfont icon-black-dianzan"></i>
+            赞 ({{ article.likes }})
+          </li>
+        </ul>
       </section>
 
       <section class="comment-wrap">
@@ -113,7 +122,7 @@
                 <span class="created-time">
                   {{ comment.created_time | dateFormat }}
                 </span>
-                <span class="like" @click="like">
+                <span class="like" @click="liked">
                   <i class="iconfont icon-dianzan"></i> 赞(0)
                 </span>
               </div>
@@ -132,6 +141,7 @@ import ua from "./components/ua";
 import Sidebar from "@/components/SideBar";
 import { getArticle } from "@/api/articles";
 import { getComments, postComment } from "@/api/comments";
+import { addLike } from "@/api/like";
 import { dateFormat } from "@/utils/filters";
 import hljs from "highlight.js";
 import "highlight.js/styles/atom-one-dark.css";
@@ -154,6 +164,7 @@ export default {
     return {
       id: this.$route.params.id,
       title: this.$route.params.title,
+      opinios: localStorage.getItem(`article_liked_${this.$route.params.id}`),
       article: {},
       total: 0,
       comments: [],
@@ -179,9 +190,6 @@ export default {
       }
     };
   },
-  // filters: {
-  //   dateFormat
-  // },
   watch: {
     $route(to, _from) {
       if (to.name === "detail") {
@@ -270,7 +278,28 @@ export default {
       }
     },
 
-    async like() {}
+    async liked() {
+      this.opinios = localStorage.getItem(`article_liked_${this.id}`);
+      if (this.opinios) {
+        this.$message({
+          type: "info",
+          message: "您已经发表过意见啦~",
+          duration: 2000
+        });
+        return;
+      }
+      const res = await addLike({ type: "article", id: this.id });
+      const isLike = res.code === 200;
+      if (isLike) {
+        localStorage.setItem(`article_liked_${this.id}`, true);
+        this.opinios = true;
+      }
+      this.$message({
+        type: isLike ? "success" : "error",
+        message: res.message,
+        duration: 2000
+      });
+    }
   },
   created() {
     this.fetchArticle();
@@ -310,6 +339,45 @@ export default {
         color: #999;
         span {
           margin-right: 8px;
+        }
+      }
+    }
+  }
+  .actions-wrap {
+    margin: 15px auto;
+    padding: 15px;
+    border-radius: 6px;
+    background: #fff;
+    .actions {
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      li {
+        padding: 6px 15px;
+        border-radius: 4px;
+        text-align: center;
+        font-size: 16px;
+        cursor: pointer;
+        color: #3ca5f6;
+        border: 1px solid #3ca5f6;
+        &.liked {
+          background-color: #4285f4;
+          color: #fff;
+          i {
+            color: #fff;
+          }
+        }
+        &:hover {
+          background: #4285f4;
+          color: #fff;
+          i {
+            color: #fff;
+          }
+        }
+
+        i {
+          font-size: 16px;
+          color: #4285f4;
         }
       }
     }
@@ -432,6 +500,32 @@ export default {
         }
       }
     }
+  }
+}
+</style>
+
+<style lang="scss">
+.article-detail {
+  line-height: 2;
+  h3 {
+    font-size: 16px;
+    margin-top: 30px;
+    margin-bottom: 10px;
+    padding-left: 10px;
+    border-left: 5px solid #9466ff;
+    background: #f0f2f7;
+  }
+  ul li:hover {
+    background-color: hsla(0, 0%, 77.3%, 0.5);
+  }
+  .code,
+  code:not([class*="lang"]) {
+    padding: 2px 5px;
+    background: #f7f7f9;
+    border: 1px solid #e3edf3;
+    border-radius: 3px;
+    font-family: play;
+    color: #d14;
   }
 }
 </style>

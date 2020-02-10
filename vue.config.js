@@ -20,13 +20,12 @@ module.exports = {
 
   // css相关配置
   css: {
-    extract: true,
     sourceMap: false,
     requireModuleExtension: true,
     loaderOptions: {
-      // scss: {
-      //   prependData: "@import \"@/assets/scss/_variable.scss\";"
-      // }
+      scss: {
+        prependData: `@import "@/assets/scss/_variable.scss";`
+      }
     }
   },
 

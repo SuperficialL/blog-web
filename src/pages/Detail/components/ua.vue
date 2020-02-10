@@ -1,11 +1,11 @@
 <template>
   <span>
     <span class="os">
-      <i v-if="osIconName" class="iconfont" :class="'icon-' + osIconName" />
+      <i v-if="osIconName" class="iconfont" :class="osIconName" />
       {{ uaResult.os.name }} {{ uaResult.os.version }}
     </span>
     <span class="browser">
-      <i class="iconfont" :class="'icon-' + browserIconName" />
+      <i class="iconfont" :class="browserIconName" />
       {{ uaResult.browser.name }} {{ uaResult.browser.major }}
     </span>
   </span>
