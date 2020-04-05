@@ -1,11 +1,14 @@
 <template>
   <div class="wrap">
     <div class="content">
-      <section class="article-wrapper">
-        <div class="category-title">
-          <h2>当前标签: {{ $route.params.title }}</h2>
-          <span>共 0 篇</span>
+      <div class="breadcrumb">
+        <div class="tag-title">
+          <h4>当前标签: {{ title }}</h4>
+          <span>共 {{ total }} 篇</span>
         </div>
+        <!-- <p class="description"></p> -->
+      </div>
+      <section class="article-wrapper">
         <article class="article" v-for="article in articles" :key="article._id">
           <router-link
             class="article-thumbnail"
@@ -97,19 +100,20 @@ export default {
       articles: [],
       total: 0,
       tag_id: this.$route.params.id,
+      title: this.$route.query.type,
       query: {
         page: 1,
         per_page: 10
       }
     };
   },
-  props: ["title"],
   filters: {
     dateFormat
   },
   watch: {
     $route() {
-      this.tag_id = this.$route.params.id;
+      this.category_id = this.$route.params.id;
+      this.title = this.$route.query.title;
       this.fetch();
     }
   },
@@ -138,5 +142,15 @@ export default {
   display: flex;
   justify-content: space-between;
   margin: 20px auto;
+}
+
+.tag-title {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  background-color: #fff;
+  margin-bottom: 20px;
+  padding: 10px;
+  border-radius: 6px;
 }
 </style>

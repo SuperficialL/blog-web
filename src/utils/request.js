@@ -6,7 +6,7 @@ import { Message, Loading } from "element-ui";
 // create an axios instance
 const service = axios.create({
   baseURL: process.env.VUE_APP_API_URL || "/api/web",
-  timeout: 5000
+  timeout: 5000,
   // request timeout
 });
 

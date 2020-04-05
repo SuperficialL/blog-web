@@ -2,7 +2,7 @@ import Vue from "vue";
 import VueRouter from "vue-router";
 import NProgress from 'nprogress';
 import 'nprogress/nprogress.css';
-// import getPageTitle from '@/utils/getPageTitle';
+import getPageTitle from '@/utils/getPageTitle';
 
 NProgress.configure({ showSpinner: false });
 
@@ -37,6 +37,14 @@ const routes = [
     }
   },
   {
+    name: "music",
+    path: "/music",
+    component: () => import("../pages/Music"),
+    meta: {
+      title: "Music",
+    }
+  },
+  {
     name: "detail",
     path: "/detail/:id",
     component: () => import("../pages/Detail"),
@@ -52,13 +60,14 @@ const router = new VueRouter({
   routes,
   scrollBehavior(to, from, savedPosition) {
     // return 期望滚动到哪个的位置
-    return { x: 0, y: 0 };
+    return savedPosition ? savedPosition : { x: 0, y: 0 };
   }
 });
 
 router.beforeEach(async (to, from, next) => {
   NProgress.start();
-  // getPageTitle();
+  const { title } = to.meta;
+  document.title = getPageTitle(title);
   next();
 });
 

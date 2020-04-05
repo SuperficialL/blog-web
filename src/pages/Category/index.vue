@@ -3,7 +3,7 @@
     <div class="content">
       <div class="breadcrumb">
         <div class="category-title">
-          <h4>当前分类: {{ type }}</h4>
+          <h4>当前分类: {{ title }}</h4>
           <span>共 {{ total }} 篇</span>
         </div>
         <!-- <p class="description"></p> -->
@@ -100,7 +100,7 @@ export default {
       articles: [],
       total: 0,
       category_id: this.$route.params.id,
-      type: this.$route.query.type,
+      title: this.$route.query.title,
       query: {
         page: 1,
         per_page: 10
@@ -113,7 +113,7 @@ export default {
   watch: {
     $route() {
       this.category_id = this.$route.params.id;
-      this.type = this.$route.query.type;
+      this.title = this.$route.query.title;
       this.fetch();
     }
   },

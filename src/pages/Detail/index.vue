@@ -33,6 +33,8 @@
             赞 ({{ article.likes }})
           </li>
         </ul>
+        <div class="prev">前一篇:{{ article.prev }}</div>
+        <div class="next">后一篇:{{ article.next }}</div>
       </section>
 
       <section class="comment-wrap">
@@ -106,7 +108,7 @@
             :key="comment._id"
           >
             <div class="comment-avatar">
-              <img src="../../assets/images/python.jpg" alt="" />
+              <img :src="comment.avatar" alt="" />
             </div>
             <div class="comment-body">
               <div class="comment-header">
@@ -144,6 +146,7 @@ import { getComments, postComment } from "@/api/comments";
 import { addLike } from "@/api/like";
 import { dateFormat } from "@/utils/filters";
 import hljs from "highlight.js";
+import Cookies from "js-cookie";
 import "highlight.js/styles/atom-one-dark.css";
 
 const highlightCode = () => {
@@ -164,7 +167,6 @@ export default {
     return {
       id: this.$route.params.id,
       title: this.$route.params.title,
-      opinios: localStorage.getItem(`article_liked_${this.$route.params.id}`),
       article: {},
       total: 0,
       comments: [],
@@ -197,6 +199,11 @@ export default {
         this.title = to.params.title;
         this.fetchArticle();
       }
+    }
+  },
+  computed: {
+    opinios() {
+      return Cookies.get(`article_liked_${this.id}`);
     }
   },
   methods: {
@@ -272,6 +279,7 @@ export default {
           data.created_time = dateFormat(new Date());
           this.comments.unshift(data);
           this.$message.success(res.message);
+          this.article.comments++;
         } else {
           this.$message.error(res.message);
         }
@@ -279,8 +287,7 @@ export default {
     },
 
     async liked() {
-      this.opinios = localStorage.getItem(`article_liked_${this.id}`);
-      if (this.opinios) {
+      if (this.getCookie(`article_liked_${this.id}`)) {
         this.$message({
           type: "info",
           message: "您已经发表过意见啦~",
@@ -291,14 +298,22 @@ export default {
       const res = await addLike({ type: "article", id: this.id });
       const isLike = res.code === 200;
       if (isLike) {
-        localStorage.setItem(`article_liked_${this.id}`, true);
-        this.opinios = true;
+        this.setCookie(`article_liked_${this.id}`, true);
       }
       this.$message({
         type: isLike ? "success" : "error",
         message: res.message,
         duration: 2000
       });
+    },
+
+    getCookie(name) {
+      return Cookies.get(name);
+    },
+
+    setCookie(name, value) {
+      const halfHour = new Date(new Date().getTime() + 30 * 60 * 1000);
+      Cookies.set(name, value, { expires: halfHour });
     }
   },
   created() {

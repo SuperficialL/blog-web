@@ -2,10 +2,10 @@
   <header class="header">
     <div class="header-container" :class="{ fixed: isFixed }">
       <div class="wrap">
-        <div class="logo">
-          <router-link to="/" tag="h2">SuperficialL Blog</router-link>
-        </div>
-        <div class="nav-container" :class="{ show: isShow }">
+        <div class="nav-container">
+          <div class="logo">
+            <router-link to="/" tag="h2">SuperficialL Blog</router-link>
+          </div>
           <ul class="nav-menu">
             <li class="nav-item">
               <router-link to="/" exact>
@@ -22,7 +22,7 @@
                 :to="{
                   name: 'category',
                   params: { id: root._id },
-                  query: { type: root.name }
+                  query: { title: root.name }
                 }"
               >
                 <i class="iconfont" :class="root.icon"></i>
@@ -39,7 +39,7 @@
                     :to="{
                       name: 'category',
                       params: { id: child._id },
-                      query: { type: child.name }
+                      query: { title: child.name }
                     }"
                     exact
                   >
@@ -51,67 +51,32 @@
             </li>
           </ul>
         </div>
-        <div class="search-box">
-          <i class="iconfont icon-menu" @click="showMenu"></i>
-          <div class="search-wrapper">
-            <el-input
-              size="small"
-              v-model="keywords"
-              placeholder="请输入关键字"
-              @keyup.enter.native="search"
-            >
-              <i
-                slot="suffix"
-                class="el-input__icon el-icon-search"
-                @click="search"
-              ></i>
-            </el-input>
-          </div>
-        </div>
+        <player ref="playing" />
       </div>
     </div>
   </header>
 </template>
 
 <script>
+import Player from "../Player";
 import { mapGetters } from "vuex";
 
 export default {
   name: "Header",
+  components: {
+    Player
+  },
   data() {
     return {
-      isFixed: true,
-      keywords: "",
-      isShow: false,
-      isShowSearch: false
+      isFixed: true
     };
   },
   computed: {
     ...mapGetters(["navigation"])
   },
   methods: {
-    // 查询
-    search() {
-      this.$message.success("查询功能博主正在开发中!");
-      // this.$router.push({ name: "search", query: { search: this.keywords } });
-    },
-
-    // 显示隐藏手机端菜单
-    showMenu() {
-      this.isShow = !this.isShow;
-      if (this.isShow) {
-        document.getElementsByTagName("body")[0].style.overflow = "hidden";
-      } else {
-        document.getElementsByTagName("body")[0].style.overflow = "";
-      }
-    },
-
-    // 显示搜索
-    showSearch() {
-      if (this.isShow) {
-        this.isShow = !this.isShow;
-      }
-      this.isShowSearch = !this.isShowSearch;
+    playing() {
+      console.log(1);
     }
   },
   created() {
@@ -163,7 +128,8 @@ export default {
       cursor: pointer;
     }
     .nav-container {
-      flex: 1;
+      display: flex;
+      align-items: center;
       height: inherit;
       &.show {
         transform: translateX(0);

@@ -1,6 +1,22 @@
 <template>
   <aside class="sidebar-wrapper">
     <div class="sidebar">
+      <div class="search-wrapper">
+        <el-input
+          size="small"
+          v-model="keywords"
+          placeholder="请输入关键字"
+          @keyup.enter.native="search"
+        >
+          <i
+            slot="suffix"
+            class="el-input__icon el-icon-search"
+            @click="search"
+          ></i>
+        </el-input>
+      </div>
+    </div>
+    <div class="sidebar">
       <div class="sidebar-header">
         <h4 class="sidebar-title">网站公告</h4>
         <router-link to="/">更多</router-link>
@@ -16,7 +32,6 @@
         </div>
       </div>
     </div>
-
     <!-- <div class="sidebar">
       <div class="sidebar-header">
         <h4 class="sidebar-title">热门文章排行</h4>
@@ -92,7 +107,11 @@
         <ul class="sidebar-tags">
           <li class="tag" v-for="tag in tags" :key="tag._id">
             <router-link
-              :to="{ name: 'tag', params: { id: tag._id, title: tag.title } }"
+              :to="{
+                name: 'tag',
+                params: { id: tag._id },
+                query: { title: tag.title }
+              }"
             >
               {{ tag.title }}
             </router-link>
@@ -126,11 +145,19 @@ export default {
   data() {
     return {
       notice: {},
-      articles: []
+      articles: [],
+      keywords: ""
     };
   },
   computed: {
     ...mapGetters(["tags", "comments", "blogInfo"])
+  },
+  methods: {
+    // 查询
+    search() {
+      this.$message.success("查询功能博主正在开发中!");
+      // this.$router.push({ name: "search", query: { search: this.keywords } });
+    }
   },
   filters: {
     dateFormat
