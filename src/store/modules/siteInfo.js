@@ -51,10 +51,10 @@ const siteInfo = {
       return new Promise((resolve, reject) => {
         getMenu(params)
           .then(res => {
-            if (res.code === 200) {
-              let categories = res.data.categories;
-              commit("UPDATE_MENU", categories);
-              resolve(categories);
+            if (res.code) {
+              let { data } = res.result;
+              commit("UPDATE_MENU", data);
+              resolve(data);
             } else {
               this.$message.error(res.message);
             }
@@ -70,7 +70,7 @@ const siteInfo = {
       return new Promise((resolve, reject) => {
         getSiteInfo(params)
           .then(res => {
-            if (res.code === 200) {
+            if (res.code) {
               let siteInfo = Object.assign({}, res.data);
               commit("UPDATE_BlogInfo", siteInfo);
               resolve(siteInfo);
@@ -89,10 +89,10 @@ const siteInfo = {
       return new Promise((resolve, reject) => {
         getFriendsLink(params)
           .then(res => {
-            if (res.code === 200) {
-              let friendsLink = res.data.friendsLink;
-              commit("UPDATE_lINKS", friendsLink);
-              resolve(friendsLink);
+            if (res.code) {
+              let { data } = res.result;
+              commit("UPDATE_lINKS", data);
+              resolve(data);
             } else {
               this.$message.error(res.message);
             }
@@ -108,7 +108,7 @@ const siteInfo = {
       return new Promise((resolve, reject) => {
         getCarousels(params)
           .then(res => {
-            if (res.code === 200) {
+            if (res.code) {
               let carousels = res.data.carousels;
               commit("UPDATE_BANNER", carousels);
               resolve(carousels);
@@ -127,10 +127,10 @@ const siteInfo = {
       return new Promise((resolve, reject) => {
         getTags(params)
           .then(res => {
-            if (res.code === 200) {
-              let tags = res.data.tags;
-              commit("UPDATE_TAGS", tags);
-              resolve(tags);
+            if (res.code) {
+              let { data } = res.result;
+              commit("UPDATE_TAGS", data);
+              resolve(data);
             } else {
               this.$message.error(res.message);
             }
@@ -146,10 +146,10 @@ const siteInfo = {
       return new Promise((resolve, reject) => {
         getComments(params)
           .then(res => {
-            if (res.code === 200) {
-              let comments = res.data.comments;
-              commit("UPDATE_COMMENTS", comments);
-              resolve(comments);
+            if (res.code) {
+              let { data } = res.result;
+              commit("UPDATE_COMMENTS", data);
+              resolve(data);
             } else {
               this.$message.error(res.message);
             }

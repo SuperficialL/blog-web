@@ -35,7 +35,7 @@
                 <router-link
                   :to="{
                     name: 'detail',
-                    params: { id: article._id, title: article.title }
+                    params: { id: article.id, title: article.title }
                   }"
                 >
                   {{ article.title }}
@@ -67,7 +67,7 @@
                   class="detail-btn"
                   :to="{
                     name: 'detail',
-                    params: { id: article._id, title: article.title }
+                    params: { id: article.id, title: article.title }
                   }"
                 >
                   阅读全文
@@ -99,7 +99,6 @@ import Sidebar from "@/components/SideBar";
 import { getArticles } from "@/api/articles";
 import { getCarousels } from "@/api/carousels";
 import { dateFormat } from "@/utils/filters";
-
 export default {
   name: "Home",
   components: {
@@ -122,15 +121,16 @@ export default {
   methods: {
     async fetch() {
       const res = await getArticles(this.query);
-      if (res.code === 200) {
-        this.articles = res.data.articles;
-        this.total = res.data.total;
+      if (res.code) {
+        const { data, pagination: { total } } = res.result;
+        this.articles = data;
+        this.total = total;
       }
     },
 
     async fetchCarousels() {
       const res = await getCarousels();
-      if (res.code === 200) {
+      if (res.code) {
         this.carousels = res.data.carousels;
       }
     },

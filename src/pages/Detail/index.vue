@@ -22,7 +22,7 @@
               {{ article.likes }}
             </span>
           </div>
-          <div class="article-detail" v-html="article.renderContent"></div>
+          <div class="article-detail" v-html="articleContent"></div>
         </article>
       </section>
 
@@ -145,17 +145,19 @@ import { getArticle } from "@/api/articles";
 import { getComments, postComment } from "@/api/comments";
 import { addLike } from "@/api/like";
 import { dateFormat } from "@/utils/filters";
-import hljs from "highlight.js";
+// import hljs from "highlight.js";
 import Cookies from "js-cookie";
-import "highlight.js/styles/atom-one-dark.css";
+// import "highlight.js/styles/atom-one-dark.css";
+import marked from "@/plugins/marked";
 
-const highlightCode = () => {
-  const preEl = document.querySelectorAll("pre");
 
-  preEl.forEach(el => {
-    hljs.highlightBlock(el);
-  });
-};
+// const highlightCode = () => {
+//   const preEl = document.querySelectorAll("pre");
+
+//   preEl.forEach(el => {
+//     hljs.highlightBlock(el);
+//   });
+// };
 
 export default {
   name: "Detail",
@@ -204,13 +206,20 @@ export default {
   computed: {
     opinios() {
       return Cookies.get(`article_liked_${this.id}`);
+    },
+    articleContent() {
+      const { content } = this.article;
+      if (!content) {
+        return "";
+      }
+      return marked(content,true);
     }
   },
   methods: {
     async fetchArticle() {
       const res = await getArticle(this.id);
-      if (res.code === 200) {
-        this.article = res.data;
+      if (res.code) {
+        this.article = res.result;
       }
     },
 
@@ -319,7 +328,7 @@ export default {
   created() {
     this.fetchArticle();
     this.fetchComments();
-    highlightCode();
+    // highlightCode();
   }
 };
 </script>
@@ -520,27 +529,65 @@ export default {
 </style>
 
 <style lang="scss">
-.article-detail {
-  line-height: 2;
-  h3 {
-    font-size: 16px;
-    margin-top: 30px;
-    margin-bottom: 10px;
-    padding-left: 10px;
-    border-left: 5px solid #9466ff;
-    background: #f0f2f7;
+// .article-detail {
+//   line-height: 2;
+//   h3 {
+//     font-size: 16px;
+//     margin-top: 30px;
+//     margin-bottom: 10px;
+//     padding-left: 10px;
+//     border-left: 5px solid #9466ff;
+//     background: #f0f2f7;
+//   }
+//   ul li:hover {
+//     background-color: hsla(0, 0%, 77.3%, 0.5);
+//   }
+//   .code,
+//   code:not([class*="lang"]) {
+//     padding: 2px 5px;
+//     background: #f7f7f9;
+//     border: 1px solid #e3edf3;
+//     border-radius: 3px;
+//     font-family: play;
+//     color: #d14;
+//   }
+// }
+
+
+pre {
+  position: relative;
+  color: hsl(0, 0%, 0%);
+  background: none;
+  font-family: Consolas, Monaco, 'Andale Mono', 'Ubuntu Mono', monospace;
+  text-align: left;
+  white-space: pre;
+  word-spacing: normal;
+  word-break: normal;
+  word-wrap: normal;
+  line-height: 1.5;
+  -moz-tab-size: 4;
+  -o-tab-size: 4;
+  tab-size: 4;
+  -webkit-hyphens: none;
+  -moz-hyphens: none;
+  -ms-hyphens: none;
+  hyphens: none;
+  .line-numbers  {
+    position: absolute;
+    left: 0;
+    top: 0;
+    width: 3rem;
+    .line-number {
+      // height: 30px;
+      // line-height: 30px;
+      text-align: center;
+    }
   }
-  ul li:hover {
-    background-color: hsla(0, 0%, 77.3%, 0.5);
-  }
-  .code,
-  code:not([class*="lang"]) {
-    padding: 2px 5px;
-    background: #f7f7f9;
-    border: 1px solid #e3edf3;
-    border-radius: 3px;
-    font-family: play;
-    color: #d14;
+  code[class*="language-"] {
+    position: relative;
+    // padding-left: 3.8rem;
   }
 }
+
+
 </style>

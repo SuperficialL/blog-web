@@ -10,6 +10,8 @@ import ElementUI from "element-ui";
 import "element-ui/lib/theme-chalk/index.css";
 Vue.use(ElementUI);
 
+import "highlight.js/styles/ocean.css";
+
 // import "./plugins/element.js";
 import * as filters from "@/utils/filters";
 

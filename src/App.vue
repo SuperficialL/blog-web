@@ -20,11 +20,11 @@ export default {
   methods: {
     getSiteInfo() {
       this.$store.dispatch("GET_MENU");
-      this.$store.dispatch("GET_BLOGINFO");
-      this.$store.dispatch("GET_FriendLink");
-      this.$store.dispatch("GET_Carousels");
+      // this.$store.dispatch("GET_BLOGINFO");
+      // this.$store.dispatch("GET_FriendLink");
+      // this.$store.dispatch("GET_Carousels");
       this.$store.dispatch("GET_TAGS");
-      this.$store.dispatch("GET_COMMENTS");
+      // this.$store.dispatch("GET_COMMENTS");
     }
   },
   created() {
