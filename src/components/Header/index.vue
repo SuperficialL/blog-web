@@ -21,8 +21,7 @@
               <router-link
                 :to="{
                   name: 'category',
-                  params: { id: root._id },
-                  query: { title: root.name }
+                  params: { slug: root.slug,title: root.name },
                 }"
               >
                 <i class="iconfont" :class="root.icon"></i>
@@ -38,8 +37,7 @@
                   <router-link
                     :to="{
                       name: 'category',
-                      params: { id: child._id },
-                      query: { title: child.name }
+                      params: { slug: child.slug,title: child.name },
                     }"
                     exact
                   >
@@ -100,7 +98,7 @@ export default {
 };
 </script>
 
-<style lang="scss">
+<style lang="scss" scoped>
 .header {
   position: relative;
   width: 100%;
@@ -134,6 +132,14 @@ export default {
       &.show {
         transform: translateX(0);
       }
+      ul {
+        margin: 0;
+        padding: 0;
+        li {
+          list-style-type: none;
+        }
+      }
+
       .nav-menu {
         display: flex;
         height: inherit;
@@ -145,9 +151,13 @@ export default {
             display: block;
             padding: 0 20px;
             height: inherit;
+            font-size: 15px;
             line-height: 60px;
             &:hover {
               color: #0088f5;
+            }
+            i {
+              font-size: 15px;
             }
           }
           & > .sub-menu {

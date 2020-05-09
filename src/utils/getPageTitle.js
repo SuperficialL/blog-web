@@ -5,10 +5,10 @@
  * @Description: 获取页面标题
  */
 
-export default function getPageTitle(pageTitle) {
-  const title = "SuperficialL Blog";
-  if (pageTitle) {
-    return `${pageTitle} - ${title}`;
+export default function getPageTitle(pageTitle, pageSlug) {
+  if (pageTitle || pageSlug) {
+    return `${ pageTitle } | ${ pageSlug }- zhangwurui.net`;
+  } else {
+    return 'zhangwurui.net';
   }
-  return `${title}`;
 }

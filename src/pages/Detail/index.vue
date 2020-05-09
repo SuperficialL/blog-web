@@ -22,7 +22,7 @@
               {{ article.likes }}
             </span>
           </div>
-          <div class="article-detail" v-html="articleContent"></div>
+          <div class="article-content" v-html="articleContent"></div>
         </article>
       </section>
 
@@ -38,9 +38,7 @@
       </section>
 
       <section class="comment-wrap">
-        <h4 class="comment-title">
-          共 {{ article.comments }} 条评论关于 “{{ article.title }}”
-        </h4>
+        <h4 class="comment-title">共 {{ article.comments }} 条评论关于 “{{ article.title }}”</h4>
         <div class="comment-form">
           <div class="comment-form-content">
             <textarea
@@ -51,9 +49,7 @@
               @blur="checkContent"
               placeholder="请填写正确QQ邮箱，以便于更好的与您取得联系，否则您的留言可能会被删除!"
             ></textarea>
-            <span v-show="content.validate" class="comment-tips">
-              {{ content.message }}
-            </span>
+            <span v-show="content.validate" class="comment-tips">{{ content.message }}</span>
           </div>
           <div class="comment-info">
             <div class="comment-input comment-form-username">
@@ -65,9 +61,7 @@
                 @blur="checkAuthor"
                 placeholder="昵称*"
               />
-              <span v-show="username.validate" class="comment-tips">
-                {{ username.message }}
-              </span>
+              <span v-show="username.validate" class="comment-tips">{{ username.message }}</span>
             </div>
             <div class="comment-input comment-form-email">
               <label for="email"></label>
@@ -78,52 +72,30 @@
                 @blur="checkEmail"
                 placeholder="邮箱*"
               />
-              <span v-show="email.validate" class="comment-tips">
-                {{ email.message }}
-              </span>
+              <span v-show="email.validate" class="comment-tips">{{ email.message }}</span>
             </div>
             <div class="comment-input comment-form-site">
               <label for="site"></label>
-              <input
-                type="url"
-                id="site"
-                v-model="site.value"
-                placeholder="站点"
-              />
+              <input type="url" id="site" v-model="site.value" placeholder="站点" />
             </div>
           </div>
           <div class="comment-btn">
-            <input
-              type="submit"
-              class="submit-btn"
-              value="发表评论"
-              @click="submit"
-            />
+            <input type="submit" class="submit-btn" value="发表评论" @click="submit" />
           </div>
         </div>
         <ul class="comment-list">
-          <li
-            class="comment-item"
-            v-for="comment in comments"
-            :key="comment._id"
-          >
+          <li class="comment-item" v-for="comment in comments" :key="comment._id">
             <div class="comment-avatar">
-              <img :src="comment.avatar" alt="" />
+              <img :src="comment.avatar" alt />
             </div>
             <div class="comment-body">
               <div class="comment-header">
-                <a :href="comment.site" class="username">
-                  {{ comment.username }}
-                </a>
+                <a :href="comment.site" class="username">{{ comment.username }}</a>
                 <ua :ua="comment.ua" />
               </div>
-              <div class="comment-content">
-                {{ comment.content }}
-              </div>
+              <div class="comment-content">{{ comment.content }}</div>
               <div class="comment-footer">
-                <span class="created-time">
-                  {{ comment.created_time | dateFormat }}
-                </span>
+                <span class="created-time">{{ comment.created_time | dateFormat }}</span>
                 <span class="like" @click="liked">
                   <i class="iconfont icon-dianzan"></i> 赞(0)
                 </span>
@@ -145,19 +117,8 @@ import { getArticle } from "@/api/articles";
 import { getComments, postComment } from "@/api/comments";
 import { addLike } from "@/api/like";
 import { dateFormat } from "@/utils/filters";
-// import hljs from "highlight.js";
 import Cookies from "js-cookie";
-// import "highlight.js/styles/atom-one-dark.css";
 import marked from "@/plugins/marked";
-
-
-// const highlightCode = () => {
-//   const preEl = document.querySelectorAll("pre");
-
-//   preEl.forEach(el => {
-//     hljs.highlightBlock(el);
-//   });
-// };
 
 export default {
   name: "Detail",
@@ -212,7 +173,7 @@ export default {
       if (!content) {
         return "";
       }
-      return marked(content,true);
+      return marked(content, true);
     }
   },
   methods: {
@@ -529,65 +490,108 @@ export default {
 </style>
 
 <style lang="scss">
-// .article-detail {
-//   line-height: 2;
-//   h3 {
-//     font-size: 16px;
-//     margin-top: 30px;
-//     margin-bottom: 10px;
-//     padding-left: 10px;
-//     border-left: 5px solid #9466ff;
-//     background: #f0f2f7;
-//   }
-//   ul li:hover {
-//     background-color: hsla(0, 0%, 77.3%, 0.5);
-//   }
-//   .code,
-//   code:not([class*="lang"]) {
-//     padding: 2px 5px;
-//     background: #f7f7f9;
-//     border: 1px solid #e3edf3;
-//     border-radius: 3px;
-//     font-family: play;
-//     color: #d14;
-//   }
-// }
-
-
-pre {
-  position: relative;
-  color: hsl(0, 0%, 0%);
-  background: none;
-  font-family: Consolas, Monaco, 'Andale Mono', 'Ubuntu Mono', monospace;
-  text-align: left;
-  white-space: pre;
-  word-spacing: normal;
-  word-break: normal;
-  word-wrap: normal;
-  line-height: 1.5;
-  -moz-tab-size: 4;
-  -o-tab-size: 4;
-  tab-size: 4;
-  -webkit-hyphens: none;
-  -moz-hyphens: none;
-  -ms-hyphens: none;
-  hyphens: none;
-  .line-numbers  {
-    position: absolute;
-    left: 0;
-    top: 0;
-    width: 3rem;
-    .line-number {
-      // height: 30px;
-      // line-height: 30px;
+.article-content {
+  p {
+    line-height: 2.2em;
+    text-indent: 2em;
+    margin-bottom: 1em;
+  }
+  pre {
+    position: relative;
+    display: block;
+    overflow: hidden;
+    margin-bottom: 1em;
+    padding-left: 3rem;
+    font-size: 13.3px;
+    background-color: rgba(0, 0, 0, 0.8);
+    &::before {
+      content: attr(data-lang) " CODE";
+      display: block;
+      color: #fff;
+      height: 30px;
+      line-height: 30px;
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 100%;
+      font-weight: 700;
+      background-color: rgba(68, 68, 68, 0.9);
+      text-transform: uppercase;
       text-align: center;
     }
+    .code-lines {
+      position: absolute;
+      left: 0;
+      top: 30px;
+      margin: 0;
+      padding: 9px 0;
+      width: 3rem;
+      // height: calc(100% - 30px);
+      text-align: center;
+      color: #555;
+      background-color: rgba(0, 0, 0, 0.2);
+      .code-line-number {
+        position: relative;
+        padding: 0;
+        list-style-type: none;
+        line-height: 30px;
+        font-size: 12.432px;
+        -webkit-user-select: none;
+        -moz-user-select: none;
+        -ms-user-select: none;
+        user-select: none;
+        transition: none;
+        &::before {
+          content: "";
+          position: absolute;
+          top: 0;
+          left: 3rem;
+          width: 66em;
+          height: 100%;
+          background-color: hsla(0, 0%, 60.4%, 0.2);
+          opacity: 0;
+          visibility: hidden;
+        }
+        &:hover::before {
+          opacity: 1;
+          visibility: visible;
+        }
+        &:hover {
+          background-color: hsla(0, 0%, 100%, 0.6);
+        }
+      }
+    }
+    code[class*="language-"] {
+      display: block;
+      float: left;
+      margin: 0;
+      padding: 9px 0;
+      width: 100%;
+      height: 100%;
+      line-height: 30px;
+      color: hsla(0, 0%, 100%, 0.87);
+      background-color: transparent;
+    }
   }
-  code[class*="language-"] {
+
+  img {
+    // max-width: 100%;
+    width: 100%;
     position: relative;
-    // padding-left: 3.8rem;
+    margin: 0 auto;
+    display: block;
+    text-align: center;
+    border-radius: 2px;
+    border: 0.618rem solid hsla(0, 0%, 77.3%, 0.5);
+    opacity: 0.9;
+    cursor: pointer;
+    box-sizing: border-box;
+  }
+  ol,
+  ul {
+    margin-bottom: 1em;
+    padding-left: 3em;
+    vertical-align: baseline;
   }
 }
-
-
 </style>

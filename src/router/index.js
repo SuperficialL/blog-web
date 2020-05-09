@@ -12,7 +12,7 @@ const routes = [
   {
     name: "home",
     path: "/",
-    component: () => import("../pages/Home"),
+    component: () => import("@/pages/Home"),
     meta: {
       title: "首页",
       keepAlive: true
@@ -20,8 +20,8 @@ const routes = [
   },
   {
     name: "category",
-    path: "/category/:id",
-    component: () => import("../pages/Category"),
+    path: "/category/:slug",
+    component: () => import("@/pages/Category"),
     meta: {
       title: "分类列表",
       keepAlive: true
@@ -29,8 +29,8 @@ const routes = [
   },
   {
     name: "tag",
-    path: "/tag/:id",
-    component: () => import("../pages/Tag"),
+    path: "/tag/:slug",
+    component: () => import("@/pages/Tag"),
     meta: {
       title: "标签列表",
       keepAlive: true
@@ -39,7 +39,7 @@ const routes = [
   {
     name: "music",
     path: "/music",
-    component: () => import("../pages/Music"),
+    component: () => import("@/pages/Music"),
     meta: {
       title: "Music",
     }
@@ -47,7 +47,7 @@ const routes = [
   {
     name: "detail",
     path: "/detail/:id",
-    component: () => import("../pages/Detail"),
+    component: () => import("@/pages/Detail"),
     meta: {
       title: "详情"
     }
@@ -56,6 +56,7 @@ const routes = [
 
 const router = new VueRouter({
   mode: "history",
+  // mode: "hash",
   base: process.env.BASE_URL,
   routes,
   scrollBehavior(to, from, savedPosition) {
@@ -65,9 +66,10 @@ const router = new VueRouter({
 });
 
 router.beforeEach(async (to, from, next) => {
+  console.log(to);
   NProgress.start();
-  const { title } = to.meta;
-  document.title = getPageTitle(title);
+  const { title="", slug="" } = to.params;
+  document.title = getPageTitle(title, slug);
   next();
 });
 

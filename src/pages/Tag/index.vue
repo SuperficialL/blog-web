@@ -99,7 +99,7 @@ export default {
     return {
       articles: [],
       total: 0,
-      tag_id: this.$route.params.id,
+      tag_slug: this.$route.params.slug,
       title: this.$route.query.type,
       query: {
         page: 1,
@@ -112,15 +112,16 @@ export default {
   },
   watch: {
     $route() {
-      this.category_id = this.$route.params.id;
+      this.tag_slug = this.$route.params.slug;
       this.title = this.$route.query.title;
       this.fetch();
     }
   },
   methods: {
     async fetch() {
+      console.log(this.tag_slug,'ss');
       let params = {
-        tag_id: this.tag_id
+        tag_slug: this.tag_slug
       };
       const res = await getArticles(params);
       if (res.code === 200) {

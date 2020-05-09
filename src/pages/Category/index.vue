@@ -3,104 +3,33 @@
     <div class="content">
       <div class="breadcrumb">
         <div class="category-title">
-          <h4>当前分类: {{ title }}</h4>
+          <h4>当前分类: {{ category_slug }}</h4>
           <span>共 {{ total }} 篇</span>
         </div>
         <!-- <p class="description"></p> -->
       </div>
-      <section class="article-wrapper">
-        <article class="article" v-for="article in articles" :key="article._id">
-          <router-link
-            class="article-thumbnail"
-            :to="{
-              name: 'detail',
-              params: { id: article._id, title: article.title }
-            }"
-          >
-            <img
-              class="thumbnail"
-              :src="article.thumbnail"
-              :alt="article.title"
-            />
-          </router-link>
-          <div class="article-content">
-            <h3 class="title">
-              <span class="classify">{{ article.category.name }}</span>
-              <router-link
-                :to="{
-                  name: 'detail',
-                  params: { id: article._id, title: article.title }
-                }"
-              >
-                {{ article.title }}
-              </router-link>
-            </h3>
-            <div class="summary">
-              {{ article.content }}
-            </div>
-            <div class="article-info">
-              <div class="article-meta">
-                <span>
-                  <i class="iconfont icon-msnui-time-detail"></i>
-                  {{ article.created_time | dateFormat }}
-                </span>
-                <span>
-                  <i class="iconfont icon-eye"></i>
-                  {{ article.views }}
-                </span>
-                <span>
-                  <i class="iconfont icon-pinglun"></i>
-                  {{ article.likes }}
-                </span>
-                <span>
-                  <i class="iconfont icon-dianzan"></i>
-                  {{ article.likes }}
-                </span>
-              </div>
-              <router-link
-                class="detail-btn"
-                :to="{
-                  name: 'detail',
-                  params: { id: article._id, title: article.title }
-                }"
-              >
-                阅读全文
-                <i class="iconfont icon-next"></i>
-              </router-link>
-            </div>
-          </div>
-        </article>
-        <el-pagination
-          @size-change="handleSizeChange"
-          @current-change="handleCurrentChange"
-          :page-size="query.per_page"
-          :current-page="query.page"
-          layout="prev, pager, next, jumper"
-          :total="total"
-          style="text-align:center;margin-top:20px;"
-        >
-        </el-pagination>
-      </section>
+      <article-list :articles="articles" />
     </div>
     <sidebar></sidebar>
   </div>
 </template>
 
 <script>
+import ArticleList from "@/components/ArticleList";
 import Sidebar from "@/components/SideBar";
 import { getArticles } from "@/api/articles";
 import { dateFormat } from "@/utils/filters";
 export default {
   name: "Category",
   components: {
+    ArticleList,
     Sidebar
   },
   data() {
     return {
       articles: [],
       total: 0,
-      category_id: this.$route.params.id,
-      title: this.$route.query.title,
+      category_slug: this.$route.params.slug,
       query: {
         page: 1,
         per_page: 10
@@ -112,15 +41,14 @@ export default {
   },
   watch: {
     $route() {
-      this.category_id = this.$route.params.id;
-      this.title = this.$route.query.title;
+      this.category_slug = this.$route.params.slug;
       this.fetch();
     }
   },
   methods: {
     async fetch() {
       let params = {
-        category: this.category_id
+        category: this.category_slug
       };
       const res = await getArticles(params);
       if (res.code === 200) {

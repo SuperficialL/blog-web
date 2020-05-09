@@ -109,7 +109,7 @@
             <router-link
               :to="{
                 name: 'tag',
-                params: { id: tag._id },
+                params: { slug: tag.slug },
                 query: { title: tag.title }
               }"
             >

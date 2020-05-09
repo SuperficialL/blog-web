@@ -9,92 +9,14 @@
           </li>
         </ul>
       </section>
-      <section class="article-wrapper">
-        <transition-group name="list">
-          <article
-            class="article"
-            v-for="article in articles"
-            :key="article._id"
-          >
-            <router-link
-              class="article-thumbnail"
-              :to="{
-                name: 'detail',
-                params: { id: article._id, title: article.title }
-              }"
-            >
-              <img
-                class="thumbnail"
-                :src="article.thumbnail"
-                :alt="article.title"
-              />
-            </router-link>
-            <div class="article-content">
-              <h3 class="title">
-                <span class="classify">{{ article.category.name }}</span>
-                <router-link
-                  :to="{
-                    name: 'detail',
-                    params: { id: article.id, title: article.title }
-                  }"
-                >
-                  {{ article.title }}
-                </router-link>
-              </h3>
-              <div class="summary">
-                {{ article.content }}
-              </div>
-              <div class="article-info">
-                <div class="article-meta">
-                  <span>
-                    <i class="iconfont icon-msnui-time-detail"></i>
-                    {{ article.created_time | dateFormat }}
-                  </span>
-                  <span>
-                    <i class="iconfont icon-eye"></i>
-                    {{ article.views }}
-                  </span>
-                  <span>
-                    <i class="iconfont icon-pinglun"></i>
-                    {{ article.comments }}
-                  </span>
-                  <span>
-                    <i class="iconfont icon-dianzan"></i>
-                    {{ article.likes }}
-                  </span>
-                </div>
-                <router-link
-                  class="detail-btn"
-                  :to="{
-                    name: 'detail',
-                    params: { id: article.id, title: article.title }
-                  }"
-                >
-                  阅读全文
-                  <i class="iconfont icon-next"></i>
-                </router-link>
-              </div>
-            </div>
-          </article>
-        </transition-group>
-
-        <el-pagination
-          @size-change="handleSizeChange"
-          @current-change="handleCurrentChange"
-          :page-size="query.per_page"
-          :current-page="query.page"
-          layout="prev, pager, next, jumper"
-          :total="total"
-          style="text-align:center;margin-top:20px;"
-        >
-        </el-pagination>
-      </section>
+      <article-list :articles="articles" />
     </div>
     <sidebar></sidebar>
   </div>
 </template>
 
 <script>
+import ArticleList from "@/components/ArticleList";
 import Sidebar from "@/components/SideBar";
 import { getArticles } from "@/api/articles";
 import { getCarousels } from "@/api/carousels";
@@ -102,7 +24,8 @@ import { dateFormat } from "@/utils/filters";
 export default {
   name: "Home",
   components: {
-    Sidebar
+    Sidebar,
+    ArticleList
   },
   data() {
     return {
@@ -129,10 +52,10 @@ export default {
     },
 
     async fetchCarousels() {
-      const res = await getCarousels();
-      if (res.code) {
-        this.carousels = res.data.carousels;
-      }
+      // const res = await getCarousels();
+      // if (res.code) {
+      //   this.carousels = res.data.carousels;
+      // }
     },
 
     handleSizeChange(val) {

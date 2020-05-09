@@ -49,8 +49,6 @@ h6 {
 
 p,
 body,
-ul,
-ol,
 pre,
 code,
 blockquote {
@@ -63,11 +61,6 @@ a {
   transition: color 0.4s;
   color: #666;
   text-decoration: none;
-}
-
-ul li,
-ol li {
-  list-style: none;
 }
 
 input,

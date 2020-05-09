@@ -45,20 +45,31 @@ const headingRender = (text, level, raw) => {
 // }
 
 // 对图片进行弹窗处理
-// const imageRender = (src, title, alt) => {
-//   // 仅替换 HTTP 链接为 proxy
-//   src = src.replace(/^http:\/\//gi, `${apiConfig.PROXY}/`);
-//   const imageHtml = `
-//     <img
-//       class="lozad"
-//       data-src="${src}"
-//       title="${title || alt || appConfig.meta.url}" 
-//       alt="${alt || title || src}"
-//       onclick="if (window.utils) window.utils.openImgPopup('${src}')"
-//     />
-//   `;
-//   return imageHtml.replace(/\s+/g, ' ').replace(/\n/g, ' ');
-// }
+const imageRender = (src, title, alt) => {
+  console.log(src,title,alt);
+  // 仅替换 HTTP 链接为 proxy
+  // src = src.replace(/^http:\/\//gi, `${apiConfig.PROXY}/`);
+  // const imageHtml = `
+  //   <img
+  //     class="lozad"
+  //     data-src="${src}"
+  //     title="${title || alt || appConfig.meta.url}" 
+  //     alt="${alt || title || src}"
+  //     onclick="if (window.utils) window.utils.openImgPopup('${src}')"
+  //   />
+  // `;
+  const imageHtml = `
+    <img
+      class="lozad"
+      src="${src}"
+      data-src="${src}"
+      title="${title || alt}" 
+      alt="${alt || title || src}"
+    />
+  `;
+  // return imageHtml.replace(/\s+/g, ' ').replace(/\n/g, ' ');
+  return imageHtml;
+}
 
 // 代码解析器（行号处理）
 const codeRender = function(code, lang, escaped) {
@@ -69,24 +80,21 @@ const codeRender = function(code, lang, escaped) {
       code = out;
     }
   }
-  const lineNums = code.split('\n').map((l, i) => `<li class="line-number">${i + 1}</li>`.replace(/\s+/g, ' ')).join('');
-  console.log(code)
+  const lineNums = code.split('\n').map((l, i) => `<li class="code-line-number">${i + 1}</li>`.replace(/\s+/g, ' ')).join('');
   const preHtml = `
-      <pre data-lang="${lang}" class="hljs ${this.options.langPrefix}${lang}">
-        <ul class="line-numbers">${lineNums}</ul>
-        <code class="${this.options.langPrefix}${escape(lang, true)}">${
-        escaped ? code : escape(code, true)
-      }\n</code>
-      </pre>\n
-    `
+    <pre data-lang="${lang}">
+      <ul class="code-lines">${lineNums}</ul>
+      <code class="${this.options.langPrefix}${escape(lang, true)}">${escaped ? code : escape(code, true)}\n</code>
+    </pre>\n
+  `;
   return preHtml;
 };
 
 // renderer.link = linkRender;
 renderer.code = codeRender;
-// renderer.image = imageRender;
-// renderer.heading = headingRender;
-// renderer.paragraph = paragraphRender;
+renderer.image = imageRender;
+renderer.heading = headingRender;
+renderer.paragraph = paragraphRender;
 
 export default (content, tags, parseHtml = false) => {
   // 所有非链接的关键字进行内链处理
@@ -97,8 +105,8 @@ export default (content, tags, parseHtml = false) => {
   // 如果是解析评论，则不解析 html 内容
   marked.setOptions({ sanitize: !parseHtml });
 
-  if (typeof content !== 'string') {
-    return '';
+  if (typeof content !== "string") {
+    return "";
   }
 
   // 返回解析内容

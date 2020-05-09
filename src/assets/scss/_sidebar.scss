@@ -34,6 +34,13 @@
   }
   .sidebar-content {
     margin-top: 10px;
+    ul {
+      margin: 0;
+      padding: 0;
+      li {
+        list-style-type: none;
+      }
+    }
   }
   .sidebar-tags {
     display: flex;

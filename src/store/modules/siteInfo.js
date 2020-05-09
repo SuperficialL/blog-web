@@ -53,6 +53,7 @@ const siteInfo = {
           .then(res => {
             if (res.code) {
               let { data } = res.result;
+              data = data.sort((a,b) => {return a.ordering - b.ordering; });
               commit("UPDATE_MENU", data);
               resolve(data);
             } else {

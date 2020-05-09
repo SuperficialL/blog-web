@@ -1,16 +1,85 @@
-/*
- * @Author: Superficial
- * @Date: 2019-12-17 14:30:46
- * @LastEditTime : 2020-02-01 19:25:49
- * @Description: 文章样式
- */
-.article-wrapper {
+<template>
+  <div class="article-list">
+    <transition-group name="list" mode="out-in">
+      <article class="article-list-item" v-for="article in articles" :key="article.id">
+        <div class="item-thumb">
+          <router-link
+            :to="{
+            name: 'detail',
+            params: { id: article.id }
+          }"
+          >
+            <img class="thumbnail" :src="article.thumbnail" :alt="article.title" />
+          </router-link>
+        </div>
+
+        <div class="item-body">
+          <h3 class="title">
+            <span class="classify">{{ article.category.name }}</span>
+            <router-link
+              :to="{
+                name: 'detail',
+                params: { id: article.id }
+              }"
+            >{{ article.title }}</router-link>
+          </h3>
+          <div class="summary">{{ article.content }}</div>
+          <div class="article-info">
+            <div class="article-meta">
+              <span>
+                <i class="iconfont icon-msnui-time-detail"></i>
+                {{ article.created_time | dateFormat }}
+              </span>
+              <span>
+                <i class="iconfont icon-eye"></i>
+                {{ article.views }}
+              </span>
+              <span>
+                <i class="iconfont icon-pinglun"></i>
+                {{ article.comments }}
+              </span>
+              <span>
+                <i class="iconfont icon-dianzan"></i>
+                {{ article.likes }}
+              </span>
+            </div>
+            <router-link
+              class="detail-btn"
+              :to="{
+                    name: 'detail',
+                    params: { id: article.id }
+                  }"
+            >
+              阅读全文
+              <i class="iconfont icon-next"></i>
+            </router-link>
+          </div>
+        </div>
+      </article>
+    </transition-group>
+  </div>
+</template>
+
+<script>
+export default {
+  name: "ArticleList",
+  props: {
+    articles: {
+      type: Array,
+      required: true
+    }
+  }
+};
+</script>
+
+<style lang="scss" scoped>
+.article-list {
   padding: 15px;
   background-color: #fff;
   border-radius: 6px;
   overflow: hidden;
 
-  .article {
+  .article-list-item {
     position: relative;
     display: flex;
     justify-content: space-between;
@@ -35,13 +104,14 @@
       background-color: #1890ff;
     }
 
-    .article-thumbnail {
+    .item-thumb {
       display: block;
       margin-right: 10px;
       overflow: hidden;
-      border-radius: 6px;
       width: 240px;
       height: 160px;
+      border-radius: 6px;
+      cursor: pointer;
 
       .thumbnail {
         width: 240px;
@@ -50,7 +120,7 @@
       }
     }
 
-    .article-content {
+    .item-body {
       position: relative;
       flex: 1;
 
@@ -120,3 +190,4 @@
     }
   }
 }
+</style>
